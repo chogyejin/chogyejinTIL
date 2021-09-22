@@ -9,6 +9,8 @@
 
 ## 3. 로컬 저장소에 commit
 
+VSCode의 왼쪽 세 번째 탭 Source Control(Control+Shift+G)
+
 ## 4. 원격 저장소 지정
 
 `git remote add origin URL.git`<br><br>
