@@ -3,6 +3,7 @@ const fn = require('./fn');
 
 //expect에 검증할 값, toBe에 기대되는 값
 //tobe : Matcher, 기본 타입 값 비교할 때 사용
+//유사한 것으로 toEqual이 있음
 test('1은 1이야', () => {
   expect(1).toBe(1);
 });
