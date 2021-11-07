@@ -26,6 +26,42 @@ const fn = {
       }, 3000);
     });
   },
+  connectUserDb: () => {
+    return new Promise((res) => {
+      setTimeout(() => {
+        res({
+          name: 'Mike',
+          age: 30,
+          gender: 'male',
+        });
+      }, 500); // 0.5초 정도 걸리는 작업이라 가정
+    });
+  },
+  disconnectUserDb: () => {
+    return new Promise((res) => {
+      setTimeout(() => {
+        res();
+      }, 500); // 0.5초 정도 걸리는 작업이라 가정
+    });
+  },
+  connectCarDb: () => {
+    return new Promise((res) => {
+      setTimeout(() => {
+        res({
+          brand: 'Benz',
+          name: 'GLA',
+          color: 'black',
+        });
+      }, 500); // 0.5초 정도 걸리는 작업이라 가정
+    });
+  },
+  disconnectCarDb: () => {
+    return new Promise((res) => {
+      setTimeout(() => {
+        res();
+      }, 500); // 0.5초 정도 걸리는 작업이라 가정
+    });
+  },
 };
 
 module.exports = fn;
