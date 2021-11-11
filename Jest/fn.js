@@ -62,6 +62,12 @@ const fn = {
       }, 500); // 0.5초 정도 걸리는 작업이라 가정
     });
   },
+  createUser: (name) => {
+    console.log('실제 유저가 생성되었습니다');
+    return {
+      name,
+    };
+  },
 };
 
 module.exports = fn;
