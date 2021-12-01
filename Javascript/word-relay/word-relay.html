@@ -1,0 +1,32 @@
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>끝말잇기</title>
+    <style></style>
+  </head>
+  <body>
+    <div><span id="order">1</span>번째 참가자</div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text" />
+    <button>입력</button>
+    <button class="btn">버튼2</button>
+    <button class="btn">버튼3</button>
+    <script>
+      const number = parseInt(prompt('몇 명 참가?'), 10);
+      //   document.querySelector('input'); // input 태그 중 첫 번째 선택
+      //   document.querySelectorAll('input'); // 모든 input 태그 포함된 객체(2개 이상), 유사배열
+      //   document.querySelector('#order'); // id=order 찾음, id는 고유함
+      //   document.querySelectorAll('button.btn'); // class=btn 찾음
+      //   document.querySelector('div>span'); // div의 자식 span
+      //   document.querySelector('div span'); // div의 자손 span, 선택자 내부선택자 ...
+      document.querySelector('input').addEventListener('input', (event) => {
+        console.log('글자 입력', event.target.value); // 입력받을 때마다 익명함수 실행
+      });
+      document.querySelector('button').addEventListener('click', function () {
+        console.log('버튼 클릭');
+      });
+    </script>
+  </body>
+</html>
