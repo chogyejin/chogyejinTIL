@@ -11,22 +11,71 @@
     <div>제시어 : <span id="word"></span></div>
     <input type="text" />
     <button>입력</button>
-    <button class="btn">버튼2</button>
-    <button class="btn">버튼3</button>
     <script>
       const number = parseInt(prompt('몇 명 참가?'), 10);
+
       //   document.querySelector('input'); // input 태그 중 첫 번째 선택
       //   document.querySelectorAll('input'); // 모든 input 태그 포함된 객체(2개 이상), 유사배열
       //   document.querySelector('#order'); // id=order 찾음, id는 고유함
       //   document.querySelectorAll('button.btn'); // class=btn 찾음
       //   document.querySelector('div>span'); // div의 자식 span
       //   document.querySelector('div span'); // div의 자손 span, 선택자 내부선택자 ...
-      document.querySelector('input').addEventListener('input', (event) => {
-        console.log('글자 입력', event.target.value); // 입력받을 때마다 익명함수 실행
-      });
-      document.querySelector('button').addEventListener('click', function () {
-        console.log('버튼 클릭');
-      });
+
+      // document.querySelector('input').addEventListener('input', (event) => {
+      //   console.log('글자 입력', event.target.value); // 입력받을 때마다 익명함수 실행
+      // });
+      // document.querySelector('button').addEventListener('click', function () {
+      //   console.log('버튼 클릭');
+      // });
+
+      // $는 태그를 지칭
+      const $button = document.querySelector('button');
+      const $input = document.querySelector('input');
+      const $word = document.querySelector('#word');
+      let word; // 제시어
+      let newWord; // 입력 단어
+      const $order = document.querySelector('#order');
+
+      const onClickButton = () => {
+        if (!word) {
+          // 제시어가 비어있다면 첫번째 참가자
+          word = newWord;
+          $word.textContent = word;
+          $input.value = ''; // 입력 후 칸 비우기
+
+          const order = Number($order.textContent); // 현재 순서
+          //끝 순서면 다음 순서는 첫 참가자
+          if (order + 1 > number) {
+            $order.textContent = 1;
+          } else {
+            $order.textContent = order + 1;
+          }
+        }
+        // 제시어가 있는 경우
+        else {
+          // 제시어의 끝이랑 입력단어의 첫글자 비교
+          if (word[word.length - 1] === newWord[0]) {
+            //올바를때
+            word = newWord;
+            $word.textContent = word;
+            $input.value = '';
+
+            const order = Number($order.textContent);
+            if (order + 1 > number) {
+              $order.textContent = 1;
+            } else {
+              $order.textContent = order + 1;
+            }
+          } else {
+          }
+        }
+      };
+      const onInput = (event) => {
+        newWord = event.target.value;
+      };
+
+      $button.addEventListener('click', onClickButton);
+      $input.addEventListener('input', onInput);
     </script>
   </body>
 </html>
