@@ -29,6 +29,8 @@
       // });
 
       // $는 태그를 지칭
+      // 태그 내부 값 선택 input, select, textarea : value
+      // button, div, span : textContent
       const $button = document.querySelector('button');
       const $input = document.querySelector('input');
       const $word = document.querySelector('#word');
@@ -37,11 +39,10 @@
       const $order = document.querySelector('#order');
 
       const onClickButton = () => {
-        if (!word) {
-          // 제시어가 비어있다면 첫번째 참가자
+        if (!word || word[word.length - 1] === newWord[0]) {
+          // 제시어가 비어있거나 단어 올바르면
           word = newWord;
           $word.textContent = word;
-          $input.value = ''; // 입력 후 칸 비우기
 
           const order = Number($order.textContent); // 현재 순서
           //끝 순서면 다음 순서는 첫 참가자
@@ -50,25 +51,15 @@
           } else {
             $order.textContent = order + 1;
           }
+          $input.value = ''; // 입력 후 칸 비우기
+          $input.focus(); // input 태그에 커서 깜빡이기
         }
         // 제시어가 있는 경우
         else {
-          // 제시어의 끝이랑 입력단어의 첫글자 비교
-          if (word[word.length - 1] === newWord[0]) {
-            //올바를때
-            word = newWord;
-            $word.textContent = word;
-            $input.value = '';
-
-            const order = Number($order.textContent);
-            if (order + 1 > number) {
-              $order.textContent = 1;
-            } else {
-              $order.textContent = order + 1;
-            }
-          } else {
-          }
+          alert('올바르지 않은 단어 입력입니다');
         }
+        $input.value = ''; // 입력 후 칸 비우기
+        $input.focus(); // input 태그에 커서 깜빡이기
       };
       const onInput = (event) => {
         newWord = event.target.value;
