@@ -12,61 +12,67 @@
     <input type="text" />
     <button>입력</button>
     <script>
-      const number = parseInt(prompt('몇 명 참가?'), 10);
+      const number = Number(prompt('몇 명 참가?'));
+      console.log(number);
+      if (number) {
+        const $button = document.querySelector('button');
+        const $input = document.querySelector('input');
+        const $word = document.querySelector('#word');
+        let word; // 제시어
+        let newWord; // 입력 단어
+        const $order = document.querySelector('#order');
 
-      //   document.querySelector('input'); // input 태그 중 첫 번째 선택
-      //   document.querySelectorAll('input'); // 모든 input 태그 포함된 객체(2개 이상), 유사배열
-      //   document.querySelector('#order'); // id=order 찾음, id는 고유함
-      //   document.querySelectorAll('button.btn'); // class=btn 찾음
-      //   document.querySelector('div>span'); // div의 자식 span
-      //   document.querySelector('div span'); // div의 자손 span, 선택자 내부선택자 ...
+        const onClickButton = () => {
+          // 입력이 3글자이고, 제시어가 비어있거나 단어 올바르면
+          if (
+            newWord.length === 3 &&
+            (!word || word[word.length - 1] === newWord[0])
+          ) {
+            word = newWord;
+            $word.textContent = word;
 
-      // document.querySelector('input').addEventListener('input', (event) => {
-      //   console.log('글자 입력', event.target.value); // 입력받을 때마다 익명함수 실행
-      // });
-      // document.querySelector('button').addEventListener('click', function () {
-      //   console.log('버튼 클릭');
-      // });
-
-      // $는 태그를 지칭
-      // 태그 내부 값 선택 input, select, textarea : value
-      // button, div, span : textContent
-      const $button = document.querySelector('button');
-      const $input = document.querySelector('input');
-      const $word = document.querySelector('#word');
-      let word; // 제시어
-      let newWord; // 입력 단어
-      const $order = document.querySelector('#order');
-
-      const onClickButton = () => {
-        if (!word || word[word.length - 1] === newWord[0]) {
-          // 제시어가 비어있거나 단어 올바르면
-          word = newWord;
-          $word.textContent = word;
-
-          const order = Number($order.textContent); // 현재 순서
-          //끝 순서면 다음 순서는 첫 참가자
-          if (order + 1 > number) {
-            $order.textContent = 1;
-          } else {
-            $order.textContent = order + 1;
+            const order = Number($order.textContent); // 현재 순서
+            //끝 순서면 다음 순서는 첫 참가자
+            if (order + 1 > number) {
+              $order.textContent = 1;
+            } else {
+              $order.textContent = order + 1;
+            }
+            $input.value = ''; // 입력 후 칸 비우기
+            $input.focus(); // input 태그에 커서 깜빡이기
+          }
+          // 제시어가 있는 경우
+          else {
+            alert('올바르지 않은 단어 입력입니다');
           }
           $input.value = ''; // 입력 후 칸 비우기
           $input.focus(); // input 태그에 커서 깜빡이기
-        }
-        // 제시어가 있는 경우
-        else {
-          alert('올바르지 않은 단어 입력입니다');
-        }
-        $input.value = ''; // 입력 후 칸 비우기
-        $input.focus(); // input 태그에 커서 깜빡이기
-      };
-      const onInput = (event) => {
-        newWord = event.target.value;
-      };
+        };
+        const onInput = (event) => {
+          newWord = event.target.value;
+        };
 
-      $button.addEventListener('click', onClickButton);
-      $input.addEventListener('input', onInput);
+        $button.addEventListener('click', onClickButton);
+        $input.addEventListener('input', onInput);
+      }
     </script>
   </body>
 </html>
+
+<!-- document.querySelector('input'); // input 태그 중 첫 번째 선택
+document.querySelectorAll('input'); // 모든 input 태그 포함된 객체(2개 이상), 유사배열
+document.querySelector('#order'); // id=order 찾음, id는 고유함
+document.querySelectorAll('button.btn'); // class=btn 찾음
+document.querySelector('div>span'); // div의 자식 span
+document.querySelector('div span'); // div의 자손 span, 선택자 내부선택자 ...
+
+document.querySelector('input').addEventListener('input', (event) => {
+  console.log('글자 입력', event.target.value); // 입력받을 때마다 익명함수 실행
+});
+document.querySelector('button').addEventListener('click', function () {
+  console.log('버튼 클릭');
+});
+
+$는 태그를 지칭
+태그 내부 값 선택 input, select, textarea : value
+button, div, span : textContent -->
