@@ -59,53 +59,83 @@
       const $operator = document.querySelector('#operator');
       const $result = document.querySelector('#result');
 
-      //중괄호{}와 return 붙으면 생략가능, 함수가 함수르 리턴(high order function)
-      const onClickNumber = (number) => () => {
-        if (operator) {
-          numTwo += number;
-        } else {
-          numOne += number;
+      //중괄호{}와 return 붙으면 생략가능, 함수가 함수를 리턴하는 고차함수(high order function)
+      // number 매개변수 쓸 때 : onClickNumber('0')
+      // const onClickNumber = (number) => () => {
+      //   if (operator) {
+      //     numTwo += number;
+      //   } else {
+      //     numOne += number;
+      //   }
+      //   $result.value += number;
+      // };
+
+      // event 객체 이용
+      const onClickNumber = (event) => {
+        if (!operator) {
+          numOne += event.target.textContent;
+          $result.value += event.target.textContent;
+          return;
         }
-        $result.value += number;
+        if (!numTwo) {
+          $result.value = '';
+        }
+        numTwo += event.target.textContent;
+        $result.value += event.target.textContent;
+      };
+
+      const onClickOperator = (op) => () => {
+        if (numOne) {
+          operator = op;
+          $operator.value = op;
+        } else {
+          alert('숫자를 먼저 입력하세요');
+        }
       };
 
       //addEventListener의 두번째 인자는 함수, onClickNumber도 함수를 리턴해야함
+      document.querySelector('#num-0').addEventListener('click', onClickNumber);
+      document.querySelector('#num-1').addEventListener('click', onClickNumber);
+      document.querySelector('#num-2').addEventListener('click', onClickNumber);
+      document.querySelector('#num-3').addEventListener('click', onClickNumber);
+      document.querySelector('#num-4').addEventListener('click', onClickNumber);
+      document.querySelector('#num-5').addEventListener('click', onClickNumber);
+      document.querySelector('#num-6').addEventListener('click', onClickNumber);
+      document.querySelector('#num-7').addEventListener('click', onClickNumber);
+      document.querySelector('#num-8').addEventListener('click', onClickNumber);
+      document.querySelector('#num-9').addEventListener('click', onClickNumber);
       document
-        .querySelector('#num-0')
-        .addEventListener('click', onClickNumber('0'));
+        .querySelector('#plus')
+        .addEventListener('click', onClickOperator('+'));
       document
-        .querySelector('#num-1')
-        .addEventListener('click', onClickNumber('1'));
+        .querySelector('#minus')
+        .addEventListener('click', onClickOperator('-'));
       document
-        .querySelector('#num-2')
-        .addEventListener('click', onClickNumber('2'));
+        .querySelector('#divide')
+        .addEventListener('click', onClickOperator('/'));
       document
-        .querySelector('#num-3')
-        .addEventListener('click', onClickNumber('3'));
-      document
-        .querySelector('#num-4')
-        .addEventListener('click', onClickNumber('4'));
-      document
-        .querySelector('#num-5')
-        .addEventListener('click', onClickNumber('5'));
-      document
-        .querySelector('#num-6')
-        .addEventListener('click', onClickNumber('6'));
-      document
-        .querySelector('#num-7')
-        .addEventListener('click', onClickNumber('7'));
-      document
-        .querySelector('#num-8')
-        .addEventListener('click', onClickNumber('8'));
-      document
-        .querySelector('#num-9')
-        .addEventListener('click', onClickNumber('9'));
-      document.querySelector('#plus').addEventListener('click');
-      document.querySelector('#minus').addEventListener('click');
-      document.querySelector('#divide').addEventListener('click');
-      document.querySelector('#mutiply').addEventListener('click', () => {});
+        .querySelector('#mutiply')
+        .addEventListener('click', onClickOperator('*'));
       document.querySelector('#calculate').addEventListener('click', () => {});
       document.querySelector('#clear').addEventListener('click', () => {});
     </script>
   </body>
 </html>
+
+<!-- 이벤트의 콜백함수 실행 시에 브라우저가 함수 실행하면서 동시에 event 객체 만들어서 전달 -->
+<!-- 
+const func = (message) => {
+  return () => {
+    console.log(message);
+    };
+  };
+
+const myFunc = func('hello');
+myFunc(); // hello 출력 
+-->
+
+<!-- if문 중첩(depth) 줄이기
+1. if문 다음에 나오는 공통 절차를 각 분기(if-else)에 넣음
+2. 짧은 절차가 먼저 오게 if문 작성
+3. 짧은 절차 후 return
+4. else 제거 -->
