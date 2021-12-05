@@ -93,6 +93,36 @@
         }
       };
 
+      const onClickCalculate = () => {
+        if (numTwo) {
+          switch (operator) {
+            case '+':
+              $result.value = parseInt(numOne) + parseInt(numTwo);
+              break;
+            case '-':
+              $result.value = numOne - numTwo;
+              break;
+            case '*':
+              $result.value = numOne * numTwo;
+              break;
+            case '/':
+              $result.value = numOne / numTwo;
+              break;
+            default:
+              break;
+          }
+        } else {
+          alert('숫자를 먼저 입력');
+        }
+      };
+
+      const onClear = () => {
+        numOne = '';
+        numTwo = '';
+        operator = '';
+        $result.value = '';
+        $operator.value = '';
+      };
       //addEventListener의 두번째 인자는 함수, onClickNumber도 함수를 리턴해야함
       document.querySelector('#num-0').addEventListener('click', onClickNumber);
       document.querySelector('#num-1').addEventListener('click', onClickNumber);
@@ -114,15 +144,18 @@
         .querySelector('#divide')
         .addEventListener('click', onClickOperator('/'));
       document
-        .querySelector('#mutiply')
+        .querySelector('#multiply')
         .addEventListener('click', onClickOperator('*'));
-      document.querySelector('#calculate').addEventListener('click', () => {});
-      document.querySelector('#clear').addEventListener('click', () => {});
+      document
+        .querySelector('#calculate')
+        .addEventListener('click', onClickCalculate);
+      document.querySelector('#clear').addEventListener('click', onClear);
     </script>
   </body>
 </html>
 
 <!-- 이벤트의 콜백함수 실행 시에 브라우저가 함수 실행하면서 동시에 event 객체 만들어서 전달 -->
+
 <!-- 
 const func = (message) => {
   return () => {
