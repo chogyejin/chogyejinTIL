@@ -27,7 +27,7 @@
   </head>
   <body>
     <input readonly id="operator" />
-    <input readonly type="number" id="result" />
+    <input readonly type="text" id="result" />
     <div class="row">
       <button id="num-7">7</button>
       <button id="num-8">8</button>
@@ -85,32 +85,62 @@
       };
 
       const onClickOperator = (op) => () => {
-        if (numOne) {
-          operator = op;
-          $operator.value = op;
-        } else {
-          alert('숫자를 먼저 입력하세요');
+        if (numTwo) {
+          switch (operator) {
+            case '+':
+              $result.value = Number(numOne) + Number(numTwo);
+              break;
+            case '-':
+              $result.value = Number(numOne) - Number(numTwo);
+              break;
+            case '*':
+              $result.value = Number(numOne) * Number(numTwo);
+              break;
+            case '/':
+              $result.value = Number(numOne) / Number(numTwo);
+              break;
+            default:
+              break;
+          }
+          numOne = $result.value;
+          numTwo = '';
         }
+        if (!numOne && op !== '-') {
+          alert('숫자를 먼저 입력하세요.');
+          return;
+        }
+        if (!numOne && op === '-') {
+          console.log('음수시작');
+          numOne = '-';
+          $result.value = numOne;
+          return;
+        }
+        operator = op;
+        $operator.value = op;
       };
 
       const onClickCalculate = () => {
         if (numTwo) {
           switch (operator) {
             case '+':
-              $result.value = parseInt(numOne) + parseInt(numTwo);
+              $result.value = Number(numOne) + Number(numTwo);
               break;
             case '-':
-              $result.value = numOne - numTwo;
+              $result.value = Number(numOne) - Number(numTwo);
               break;
             case '*':
-              $result.value = numOne * numTwo;
+              $result.value = Number(numOne) * Number(numTwo);
               break;
             case '/':
-              $result.value = numOne / numTwo;
+              $result.value = Number(numOne) / Number(numTwo);
               break;
             default:
               break;
           }
+          $operator.value = '';
+          numOne = $result.value;
+          numTwo = '';
+          operator = '';
         } else {
           alert('숫자를 먼저 입력');
         }
