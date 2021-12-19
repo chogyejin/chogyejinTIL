@@ -1,0 +1,41 @@
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>숫자야구</title>
+  </head>
+  <body>
+    <form id="form">
+      <input type="text" id="input" />
+      <button>확인</button>
+    </form>
+    <div id="logs"></div>
+    <script>
+      const $input = document.querySelector('#input');
+      const $form = document.querySelector('#form');
+      const $logs = document.querySelector('#logs');
+
+      const numbers = []; //[1,2,3,4,5,6,7,8,9]
+      for (let i = 0; i < 9; i++) {
+        numbers.push(i + 1);
+      }
+
+      //number 배열(인덱스 : 0~8)에서 뽑아서 answer 배열로
+      const answer = [];
+      for (let i = 0; i < 4; i++) {
+        const index = Math.floor(Math.random() * numbers.length); //length가 9,8,7,6 됨(9 - i)
+        answer.push(numbers[index]);
+        numbers.splice(index, 1); //index부터 1개 제거
+      }
+      console.log(answer);
+    </script>
+  </body>
+</html>
+
+<!-- Math 객체 이용 1 이상 9 이하 정수 뽑기
+0 <= Math.random() < 1
+0 <= Math.random() * 9 < 9
+1 <= Math.random() * 9 + 1 < 10
+Math.floor() 소수점 내림
+ -->
