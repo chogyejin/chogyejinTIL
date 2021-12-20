@@ -8,14 +8,14 @@
   <body>
     <form id="form">
       <input type="text" id="input" />
-      <button>확인</button>
+      <button id="button">확인</button>
     </form>
     <div id="logs"></div>
     <script>
       const $input = document.querySelector('#input');
       const $form = document.querySelector('#form');
       const $logs = document.querySelector('#logs');
-
+      const $button = document.querySelector('#button');
       const numbers = []; //[1,2,3,4,5,6,7,8,9]
       for (let i = 0; i < 9; i++) {
         numbers.push(i + 1);
@@ -71,6 +71,9 @@
             `${value}도 아니야.. 패배, 정답은 ${answer.join('')}`,
           );
           $logs.append(message, document.createElement('br'));
+          $input.disabled = true;
+          $button.disabled = true;
+
           return;
         }
 
@@ -110,6 +113,8 @@
             `3아웃 패배, 정답은 ${answer.join('')}`,
           );
           $logs.append(message, document.createElement('br'));
+          $input.disabled = true;
+          $button.disabled = true;
           return;
         }
         tries.push(value);
