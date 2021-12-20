@@ -29,6 +29,36 @@
         numbers.splice(index, 1); //index부터 1개 제거
       }
       console.log(answer);
+
+      const tries = [];
+      function checkInput(input) {
+        // 길이 체크
+        if (input.length !== 4) {
+          return alert('4자리 숫자로 입력하세요');
+        }
+        // 중복 체크, Set : 중복이 없는 배열
+        if (new Set(input).size !== 4) {
+          return alert('중복되지 않게 입력하세요');
+        }
+        // 시도한 값 체크
+        if (tries.includes(input)) {
+          return alert('이미 시도한 값입니다');
+        }
+        return true;
+      }
+
+      $form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        //console.log(event.target[0]); // input 태그
+        //console.log(event.target[1]); // button 태그
+        const value = $input.value; // event.target.value
+        $input.value = '';
+        const isValid = checkInput(value);
+        if (checkInput(value)) {
+          tries.push(value);
+        } else {
+        }
+      });
     </script>
   </body>
 </html>
@@ -38,4 +68,10 @@
 0 <= Math.random() * 9 < 9
 1 <= Math.random() * 9 + 1 < 10
 Math.floor() 소수점 내림
+
+input 태그가 있으면 되도록 form 안에
+form은 기본적으로 submit 후 새로고침
+
+form 안의 event 객체는 target이라는 배열 프로퍼티를 가짐
+event.target[index]로 form 안의 태그에 접근 가능 
  -->
