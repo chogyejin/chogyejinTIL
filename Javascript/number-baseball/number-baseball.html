@@ -48,6 +48,7 @@
       }
 
       let count = 0;
+      let out = 0;
       $form.addEventListener('submit', (event) => {
         event.preventDefault();
         //console.log(event.target[0]); // input 태그
@@ -91,10 +92,26 @@
         }
 
         count += 1;
-        $logs.append(
-          `${count}:번째 시도 ${value} : ${strike} 스트라이크 ${ball} 볼`,
-          document.createElement('br'),
-        );
+        if (strike === 0 && ball === 0) {
+          out += 1;
+          $logs.append(
+            `${count}번째 시도 : ${value} ${out}아웃`,
+            document.createElement('br'),
+          );
+        } else {
+          $logs.append(
+            `${count}번째 시도 :  ${value} : ${strike} 스트라이크 ${ball} 볼`,
+            document.createElement('br'),
+          );
+        }
+
+        if (out === 3) {
+          const message = document.createTextNode(
+            `3아웃 패배, 정답은 ${answer.join('')}`,
+          );
+          $logs.append(message, document.createElement('br'));
+          return;
+        }
         tries.push(value);
       });
     </script>
