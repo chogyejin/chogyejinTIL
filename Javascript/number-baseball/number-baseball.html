@@ -47,17 +47,55 @@
         return true;
       }
 
+      let count = 0;
       $form.addEventListener('submit', (event) => {
         event.preventDefault();
         //console.log(event.target[0]); // input 태그
         //console.log(event.target[1]); // button 태그
+
         const value = $input.value; // event.target.value
         $input.value = '';
         const isValid = checkInput(value);
-        if (checkInput(value)) {
-          tries.push(value);
-        } else {
+        if (!isValid) {
+          return;
         }
+
+        if (answer.join('') === value) {
+          $logs.textContent = '홈런';
+          return;
+        }
+
+        if (tries.length >= 9) {
+          const message = document.createTextNode(
+            `${value}도 아니야.. 패배, 정답은 ${answer.join('')}`,
+          );
+          $logs.append(message, document.createElement('br'));
+          return;
+        }
+
+        let strike = 0;
+        let ball = 0;
+        // answer 배열 길이 만큼 돌면서
+        // answer 값과 value(string) 값 비교하여 처음 일치하는 인덱스 반환(string.indexOf())
+        // index가 1이 아니면 일치하는 값 있는 것
+        // 자릿수도 맞으면 strike, 아니면 ball
+        for (i = 0; i < answer.length; i++) {
+          const index = value.indexOf(answer[i]);
+          if (index !== -1) {
+            if (index === i) {
+              strike += 1;
+            } else {
+              ball += 1;
+            }
+          }
+        }
+
+        count += 1;
+        $logs.append(
+          `${count}:번째 시도 ${value} : ${strike} 스트라이크 ${ball} 볼`,
+          document.createElement('br'),
+        );
+        tries.push(value);
       });
     </script>
   </body>
@@ -74,4 +112,11 @@ form은 기본적으로 submit 후 새로고침
 
 form 안의 event 객체는 target이라는 배열 프로퍼티를 가짐
 event.target[index]로 form 안의 태그에 접근 가능 
+
+array.join() : 배열에서 문자열로, 기본 연결 콤마(,),
+join('') 하면 공백 없이 변경, 반대는 string.split()
+
+append() vs appendChild()
+append()는 Node object, DOM string 모두 받기 가능, return value 없음
+appendChild()는 Node object 1개만 받음, return value는 Node object
  -->
