@@ -16,10 +16,17 @@
       const $form = document.querySelector('#form');
       const $logs = document.querySelector('#logs');
       const $button = document.querySelector('#button');
-      const numbers = []; //[1,2,3,4,5,6,7,8,9]
-      for (let i = 0; i < 9; i++) {
-        numbers.push(i + 1);
-      }
+
+      // const numbers = []; //[1,2,3,4,5,6,7,8,9]
+      // for (let i = 0; i < 9; i++) {
+      //   numbers.push(i + 1);
+      // }
+
+      const numbers = Array(9)
+        .fill(0)
+        .map((element, index) => {
+          return index + 1;
+        });
 
       //number 배열(인덱스 : 0~8)에서 뽑아서 answer 배열로
       const answer = [];
@@ -141,4 +148,10 @@ join('') 하면 공백 없이 변경, 반대는 string.split()
 append() vs appendChild()
 append()는 Node object, DOM string 모두 받기 가능, return value 없음
 appendChild()는 Node object 1개만 받음, return value는 Node object
+
+길이 10, 0으로 초기화, 1~10 요소 넣기(새 배열 반환)
+기본적인 for문보다는 성능이 안 좋지만 연속되는 작업 편리
+Array(10).fill(0).map((element, index) => {
+  return idx + 1;
+})
  -->
