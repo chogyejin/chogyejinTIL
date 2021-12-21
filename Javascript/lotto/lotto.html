@@ -1,0 +1,56 @@
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>로또</title>
+    <style>
+      .ball {
+        display: inline-block;
+        border: 1px solid black;
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        text-align: center;
+        margin-right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="result">추첨 결과</div>
+    <div id="bonus">보너스 :</div>
+    <script>
+      // 45개 만들고 섞고 7개 뽑음
+      const allBalls = Array(45)
+        .fill()
+        .map((ele, i) => i + 1);
+      const shuffles = [];
+      while (allBalls.length > 0) {
+        const randomIndex = Math.floor(Math.random() * allBalls.length); // 무작위 인덱스 뽑기(0~44, 0~43 ...)
+        const spliceArray = allBalls.splice(randomIndex, 1); // 뽑은 원소를 포함한 배열 리턴
+        shuffles.push(spliceArray[0]); // 그 원소 shuffles 배열에 넣기
+      }
+      console.log(shuffles);
+      const winBalls = shuffles.slice(0, 6).sort((a, b) => a - b);
+      const bonus = shuffles[6];
+    </script>
+  </body>
+</html>
+
+<!-- 
+Fisher-Yates Shuffle : 중복되지 않는 추출 알고리즘
+무작위로 하나 뽑고 해당 원소를 제외 시킨다.
+뽑은 걸 새로운 배열에 담는다
+
+while vs for
+while은 내가 몇 번 반복될지 헷갈릴 때 간결하게
+
+array.sort() : tim sort
+정렬하면서 원본 변함 -> array.slice()를 이용
+
+// 숫자 정렬
+array.sort((a, b) => a - b) // 오름차순, b - a 는 내림차순
+
+// 문자 사전순 정렬
+array.sort((a, b) => a.localeCompare(b))
+ -->
