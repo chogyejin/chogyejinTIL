@@ -46,12 +46,15 @@
         $target.appendChild($ball);
       }
 
-      for (let i = 0; i < 6; i++) {
+      // 6개 번호
+      // for의 i 증감은 동기, setTimeout은 비동기
+      for (let i = 0; i < winBalls.length; i++) {
         setTimeout(() => {
           showBall(winBalls[i], $result);
         }, (i + 1) * 1000);
       }
 
+      // 보너스 번호
       setTimeout(() => {
         showBall(bonus, $bonus);
       }, 7000);
@@ -77,4 +80,27 @@ array.sort((a, b) => a - b) // 오름차순, b - a 는 내림차순
 array.sort((a, b) => a.localeCompare(b))
 
 Javascript의 setTimeout은 완전 정확하지 않음
+
+var vs let, const
+var : 함수 스코프 -> 함수 안에서만 지역변수, 나머지 블록에선 전역변수
+let, const : 블록({}, for, while, if ...) 스코프 -> 모두 지역변수(외부 참조 X)
+
+클로저 : 함수와 함수가 선언된 어휘적 환경(var 변수)의 조합
+
+51번 라인 let이 아닌 var로 선언 시 실행 순서
+i = 0 setTimeout(콜백 0, 1000) 실행
+i = 1 setTimeout(콜백 1, 1000) 실행
+i = 2 setTimeout(콜백 2, 1000) 실행
+i = 3 setTimeout(콜백 3, 1000) 실행
+i = 4 setTimeout(콜백 4, 1000) 실행
+i = 5 setTimeout(콜백 5, 1000) 실행
+i = 6
+1초 후 콜백 0
+2초 후 콜백 1 
+3초 후 콜백 2
+4초 후 콜백 3
+5초 후 콜백 4
+6초 후 콜백 5
+결과적으로 setTimeout에 console.log 찍으면 i=6 winBalls[i]은 undefined
+let은 해당 블록에 변수(i)를 종속시켜줌
  -->
