@@ -16,6 +16,7 @@
         </div>
         <div id="header-search">
           <a href="https://www.naver.com">
+            <!-- h1이랑 fieldset vertical-align으로 정렬(inline~~일 때만 가능)-->
             <h1>
               <span class="blind">네이버</span>
             </h1>
@@ -24,7 +25,10 @@
           <fieldset>
             <legend class="blind">검색</legend>
             <input />
-            <button class="blind">검색</button>
+            <button>
+              <span class="blind">검색</span>
+              <span class="search-icon"></span>
+            </button>
           </fieldset>
         </div>
       </div>

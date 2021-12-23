@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 #header-container {
   margin: 0 auto;
   width: 1130px;
@@ -5,7 +9,6 @@
 
 #header-search a {
   text-decoration: none;
-  height: 1px;
 }
 
 #header-search h1 {
@@ -15,14 +18,51 @@
   background-image: url(./src/sp_main_bf79fd.png);
   background-size: 444px 439px;
   background-position: 0 -158px;
+  vertical-align: middle;
+  position: relative;
+  top: -6px;
 }
 
 #header-search fieldset {
+  margin-left: 20px;
   padding: 12px 0 12px 10px;
   border: 2px solid #19ce60;
   width: 586px;
-  height: 52px;
+  height: 56px;
   display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+
+#header-search fieldset input {
+  width: 444px;
+  height: 24px;
+  border: none;
+  padding: 0;
+  outline: none;
+  vertical-align: top;
+}
+
+#header-search fieldset button {
+  width: 56px;
+  height: 56px;
+  border: none;
+  padding: 0;
+  background: #19ce60;
+  position: absolute;
+  right: -2px;
+  top: -2px;
+}
+
+#header-search fieldset button .search-icon {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-image: url(./src/sp_main_bf79fd.png);
+  background-position: -420px -184px;
+  background-size: 444px 439px;
+  background-repeat: no-repeat;
+  vertical-align: middle;
 }
 
 .blind {
