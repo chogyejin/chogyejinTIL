@@ -1,0 +1,66 @@
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>반응속도 체크</title>
+    <style>
+      #screen {
+        width: 300px;
+        height: 200px;
+        text-align: center;
+        user-select: none;
+      }
+      #screen.waiting {
+        background-color: rgb(107, 107, 214);
+      }
+      #screen.ready {
+        background-color: rgb(223, 73, 103);
+        color: white;
+      }
+      #screen.now {
+        background-color: rgb(122, 204, 122);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="screen" class="waiting">클릭해서 시작하기</div>
+    <div id="result"></div>
+    <script>
+      const $screen = document.querySelector('#screen');
+      const $result = document.querySelector('#result');
+
+      $screen.addEventListener('click', (event) => {
+        console.log(Math.floor(Math.random() * 2000 + 2000));
+        // console.log(event.target); // div 태그
+        // 빨간 화면 되면 타이머 시작 -> 초록 화면에서 div 클릭 시 타이머 정지
+        if (event.target.classList.contains('waiting')) {
+          $screen.classList.add('ready');
+          $screen.classList.remove('waiting');
+          $screen.textContent = `초록색이 되면 클릭해요`;
+          //랜덤시간 후 화면 바뀌고 시간재기
+          setTimeout(() => {
+            $screen.classList.add('now');
+            $screen.classList.remove('ready');
+            $screen.textContent = `클릭!!`;
+          }, Math.floor(Math.random() * 2000 + 2000)); //2000~3999
+        } else if (event.target.classList.contains('ready')) {
+        } else if (event.target.classList.contains('now')) {
+          //시간재기
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<!--
+id.class
+screen이라는 id에 class(waiting, ready, now)로 역할 부여
+
+classList 객체
+태그.classList.contains('클래스') : true false
+태그.classList.add('클래스') : 추가
+태그.classList.replace('기존 클래스', '바꿀 클래스') : 수정
+태그.classList.remove('클래스') : 제거
+
+ -->
