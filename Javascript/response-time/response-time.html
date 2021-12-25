@@ -30,6 +30,8 @@
       const $screen = document.querySelector('#screen');
       const $result = document.querySelector('#result');
 
+      let startTime;
+      let endTime;
       $screen.addEventListener('click', (event) => {
         console.log(Math.floor(Math.random() * 2000 + 2000));
         // console.log(event.target); // div 태그
@@ -40,6 +42,7 @@
           $screen.textContent = `초록색이 되면 클릭해요`;
           //랜덤시간 후 화면 바뀌고 시간재기
           setTimeout(() => {
+            startTime = new Date();
             $screen.classList.add('now');
             $screen.classList.remove('ready');
             $screen.textContent = `클릭!!`;
@@ -47,6 +50,11 @@
         } else if (event.target.classList.contains('ready')) {
         } else if (event.target.classList.contains('now')) {
           //시간재기
+          endTime = new Date();
+          $result.textContent = `${endTime - startTime}ms `;
+          $screen.classList.add('waiting');
+          $screen.classList.remove('now');
+          $screen.textContent = `클릭해서 시작하기`;
         }
       });
     </script>
