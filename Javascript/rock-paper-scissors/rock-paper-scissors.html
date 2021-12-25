@@ -67,17 +67,56 @@
         $computer.style.backgroundSize = 'auto 200px';
       }
 
-      // 버튼 누르면 1초 동안 멈추는 함수
       let intervalId = setInterval(changeComputerHand, 100);
-      let clickable = true;
 
+      // 버튼 누르면 1초 동안 멈추는 함수
+      let clickable = true;
+      let score = 0;
+      let message = '';
       function clickButton() {
         if (clickable) {
           // 타이머 멈추고
           clearInterval(intervalId);
           clickable = false;
-          // 점수 계산 및 화면 표시
 
+          // 점수 계산 및 화면 표시
+          //   console.log(event);
+          //   console.log(event.target);
+          //   console.log(event.target.id);
+          const myHand = event.target.id;
+
+          if (myHand === 'rock') {
+            if (computerHand === 'rock') {
+              message = '무승부';
+            } else if (computerHand === 'scissors') {
+              message = '승리';
+              score += 1;
+            } else if (computerHand === 'paper') {
+              message = '패배';
+              score += -1;
+            }
+          } else if (myHand === 'scissors') {
+            if (computerHand === 'rock') {
+              message = '패배';
+              score += -1;
+            } else if (computerHand === 'scissors') {
+              message = '무승부';
+            } else if (computerHand === 'paper') {
+              message = '승리';
+              score += 1;
+            }
+          } else if (myHand === 'paper') {
+            if (computerHand === 'rock') {
+              message = '승리';
+              score += 1;
+            } else if (computerHand === 'scissors') {
+              message = '패배';
+              score += -1;
+            } else if (computerHand === 'paper') {
+              message = '무승부';
+            }
+          }
+          $score.textContent = `${message}! 현재 점수는 ${score}`;
           // 1초 뒤에 다시 setInterval 실행, 다시 클릭 가능
           setTimeout(() => {
             clickable = true;
@@ -119,6 +158,9 @@ func() === func() // false
 
 따라서 어떤 변수에 할당해주고 비교
 const a = {};
-const b = a;
+const b = a; // 참조
 a === b // true
+
+animal === '강아지' ||| animal === '고양이' ||| animal === '새'
+['강아지', '고양이', '새'].includes(animal) 로 변경 가능 
  -->
