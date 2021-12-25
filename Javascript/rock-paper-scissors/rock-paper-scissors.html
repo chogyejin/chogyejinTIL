@@ -71,7 +71,8 @@
 
       // 버튼 누르면 1초 동안 멈추는 함수
       let clickable = true;
-      let score = 0;
+      let myScore = 0;
+      let computerScore = 0;
       let message = '';
       function clickButton() {
         if (clickable) {
@@ -90,38 +91,46 @@
               message = '무승부';
             } else if (computerHand === 'scissors') {
               message = '승리';
-              score += 1;
+              myScore += 1;
             } else if (computerHand === 'paper') {
               message = '패배';
-              score += -1;
+              computerScore += 1;
             }
           } else if (myHand === 'scissors') {
             if (computerHand === 'rock') {
               message = '패배';
-              score += -1;
+              computerScore += 1;
             } else if (computerHand === 'scissors') {
               message = '무승부';
             } else if (computerHand === 'paper') {
               message = '승리';
-              score += 1;
+              myScore += 1;
             }
           } else if (myHand === 'paper') {
             if (computerHand === 'rock') {
               message = '승리';
-              score += 1;
+              myScore += 1;
             } else if (computerHand === 'scissors') {
               message = '패배';
-              score += -1;
+              computerScore += 1;
             } else if (computerHand === 'paper') {
               message = '무승부';
             }
           }
-          $score.textContent = `${message}! 현재 점수는 ${score}`;
-          // 1초 뒤에 다시 setInterval 실행, 다시 클릭 가능
-          setTimeout(() => {
-            clickable = true;
-            intervalId = setInterval(changeComputerHand, 100);
-          }, 1000);
+
+          // 혹시 모를 일에 대비해 3점 이상으로 조건
+          if (myScore >= 3) {
+            $score.textContent = `나의 승리`;
+          } else if (computerScore >= 3) {
+            $score.textContent = `컴퓨터 승리`;
+          } else {
+            $score.textContent = `${message}! 현재 내 점수는 ${myScore}, 컴퓨터는 ${computerScore}`;
+            // 1초 뒤에 다시 setInterval 실행, 다시 클릭 가능
+            setTimeout(() => {
+              clickable = true;
+              intervalId = setInterval(changeComputerHand, 100);
+            }, 1000);
+          }
         }
       }
 
