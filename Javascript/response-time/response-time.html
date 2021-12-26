@@ -32,26 +32,39 @@
 
       let startTime;
       let endTime;
+      const records = [];
+      let timeoutId;
       $screen.addEventListener('click', (event) => {
-        console.log(Math.floor(Math.random() * 2000 + 2000));
         // console.log(event.target); // div 태그
-        // 빨간 화면 되면 타이머 시작 -> 초록 화면에서 div 클릭 시 타이머 정지
+        // 눌러서 빨간 화면 되면 타이머 시작 -> 초록 화면에서 div 클릭 시 타이머 정지
         if (event.target.classList.contains('waiting')) {
+          //파랑화면
           $screen.classList.add('ready');
           $screen.classList.remove('waiting');
           $screen.textContent = `초록색이 되면 클릭해요`;
           //랜덤시간 후 화면 바뀌고 시간재기
-          setTimeout(() => {
+          timeoutId = setTimeout(() => {
             startTime = new Date();
             $screen.classList.add('now');
             $screen.classList.remove('ready');
             $screen.textContent = `클릭!!`;
           }, Math.floor(Math.random() * 2000 + 2000)); //2000~3999
         } else if (event.target.classList.contains('ready')) {
+          //빨강화면 -> 누르면 안됨 -> 누르면 파랑 화면으로
+          clearTimeout(timeoutId);
+          $screen.classList.add('waiting');
+          $screen.classList.remove('ready');
+          $screen.textContent = '클릭하세요';
         } else if (event.target.classList.contains('now')) {
+          //초록화면 -> 눌러서 시간 차이 계산
           //시간재기
           endTime = new Date();
-          $result.textContent = `${endTime - startTime}ms `;
+          const currentRecord = endTime - startTime;
+          records.push(currentRecord);
+
+          const averageRecord =
+            records.reduce((a, c) => a + c) / records.length;
+          $result.textContent = `현재 ${currentRecord}ms, 평균 ${averageRecord}ms `;
           $screen.classList.add('waiting');
           $screen.classList.remove('now');
           $screen.textContent = `클릭해서 시작하기`;
@@ -71,4 +84,31 @@ classList 객체
 태그.classList.replace('기존 클래스', '바꿀 클래스') : 수정
 태그.classList.remove('클래스') : 제거
 
+배열 요소들을 하나로 축소(reduce)
+array.reduce((누적값, 현재값, 인덱스) => 다음 누적값, 초기값)
+초기값 안 넣으면 -> 처음 누적값으로 초기화, 현재값 두 번째부터
+최종 누적값 return
+
+예시 1) [1, 2, 3, 4].reduce((a, c) => (a * c), 1)
+a:0, c:1
+a:1, c:2
+a:2, c:3
+a:6, c:4
+24 리턴
+
+예시 2) 배열을 객체로
+['고양이', '개', '새', '물고기'].reduce((a, c, i) => { a[i] =c; return a }, {})
+a:{}, c:'고양이', i=0
+a:{0: '고양이'}, c:'개', i=1
+a:{0: '고양이', 1: '개'}, c:'새', i=2
+a:{0: '고양이', 1: '개', 2: '새'}, c:'물고기', i=3
+a:{0: '고양이', 1: '개', 2: '새', 3: '물고기'} 리턴
+
+Date 객체
+new Date().getFullYear()
+new Date().getMonth() : 현재 달에서 1빼서 나옴
+new Date().getDate()
+new Date().getHours()
+new Date().getMinutes()
+new Date().toLocaleString() : 읽기 쉬운 날짜로 변환
  -->
