@@ -26,9 +26,11 @@
   <body>
     <div id="screen" class="waiting">클릭해서 시작하기</div>
     <div id="result"></div>
+    <div id="records"></div>
     <script>
       const $screen = document.querySelector('#screen');
       const $result = document.querySelector('#result');
+      const $records = document.querySelector('#records');
 
       let startTime;
       let endTime;
@@ -42,6 +44,7 @@
           $screen.classList.add('ready');
           $screen.classList.remove('waiting');
           $screen.textContent = `초록색이 되면 클릭해요`;
+
           //랜덤시간 후 화면 바뀌고 시간재기
           timeoutId = setTimeout(() => {
             startTime = new Date();
@@ -65,6 +68,23 @@
           const averageRecord =
             records.reduce((a, c) => a + c) / records.length;
           $result.textContent = `현재 ${currentRecord}ms, 평균 ${averageRecord}ms `;
+
+          // 탑5 기록
+          const topRecords = records
+            .slice()
+            .sort((a, b) => a - b)
+            .slice(0, 5);
+          console.log(topRecords);
+
+          // 기록 보여주는 div
+          $records.textContent = ''; //안해주면 1/1,2/1,2,3 ... 으로 div 중첩됨
+          topRecords.map((record, i) => {
+            const $recordsDiv = document.createElement('div');
+            $recordsDiv.textContent = `${i + 1}등 :  ${record}`;
+            $records.appendChild($recordsDiv);
+          });
+
+          // 초기화면으로
           $screen.classList.add('waiting');
           $screen.classList.remove('now');
           $screen.textContent = `클릭해서 시작하기`;
