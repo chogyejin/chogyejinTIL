@@ -18,35 +18,25 @@
     </style>
   </head>
   <body>
-    <!-- <table>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </table> -->
     <script>
-      let turn = 'O';
-      const data = [];
-      for (let i = 0; i < 3; i++) {
-        data.push([]);
-      }
+      const { body } = document;
+      const $result = document.createElement('div');
+      const rows = []; // 행 3개를 갖는 배열
+      // [
+      //   [ , , ],
+      //   [ , , ],
+      //   [ , , ],
+      // ]
 
+      //테이블 만들기
       const $table = document.createElement('table');
+      let turn = 'O';
       for (let i = 0; i < 3; i++) {
+        const cells = []; // 행 한 줄에 있는 td 배열(행 배열)
         const $tr = document.createElement('tr');
-        for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
           const $td = document.createElement('td');
+          cells.push($td);
           $td.addEventListener('click', (event) => {
             // console.log('클릭');
             // console.log(event.target); //<td></td>
@@ -60,13 +50,45 @@
           });
           $tr.append($td);
         }
+        rows.push(cells);
         $table.append($tr);
       }
-      document.body.append($table);
+      console.log(rows);
+      body.append($table);
+      body.append($result);
     </script>
   </body>
 </html>
 
 <!-- 
+구조분해할당 : 객체의 속성과 그 속성을 담을 변수의 이름이 같을 때
 
- -->
+예시1) 객체
+const name = student.name;
+const { name } = student;
+
+const obj = {
+  a: 'a',
+  b: {
+    c: 'c',
+    d: {
+      e: 'e',
+    },
+  },
+};
+
+const a = obj.a;
+const c = obj.b.c;
+const e = obj.b.d.e;
+const { a, b: { c, d: { e } } } = obj;
+
+
+예시2) 배열 : 비어있는 콤마는 빼고 넘어감
+const arr = [1, 2, 3, 4, 5]; 
+
+const one = arr[0];
+const three = arr[2];
+const four = arr[3];
+const five = arr[4];
+const [one,, three, four, five] = arr;
+-->
