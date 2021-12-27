@@ -30,30 +30,25 @@
 
       //테이블 만들기
       const $table = document.createElement('table');
-      let turn = 'O';
+      let turn = 'O'; // O로 시작
       for (let i = 0; i < 3; i++) {
         const cells = []; // 행 한 줄에 있는 td 배열(행 배열)
         const $tr = document.createElement('tr');
         for (let j = 0; j < 3; j++) {
           const $td = document.createElement('td');
           cells.push($td);
-          $td.addEventListener('click', (event) => {
-            // console.log('클릭');
-            // console.log(event.target); //<td></td>
-            if (event.target.textContent) return; // 칸에 글자가 있으면 함수 끝내기
-            event.target.textContent = turn;
-            if (turn === 'O') {
-              turn = 'X';
-            } else if (turn === 'X') {
-              turn = 'O';
-            }
-          });
           $tr.append($td);
         }
         rows.push(cells);
         $table.append($tr);
       }
-      console.log(rows);
+
+      // 이벤트 버블링
+      $table.addEventListener('click', (event) => {
+        if (event.target.textContent) return; // 칸에 글자가 있으면 함수 끝내기
+        event.target.textContent = turn;
+        turn = turn === 'O' ? 'X' : 'O'; // === > 삼항 > 대입
+      });
       body.append($table);
       body.append($result);
     </script>
@@ -91,4 +86,12 @@ const three = arr[2];
 const four = arr[3];
 const five = arr[4];
 const [one,, three, four, five] = arr;
+
+이벤트 버블링 : 한 요소에 이벤트가 발생하면, 이 요소에 할당된 핸들러가 동작하고, 이어서 부모 요소의 핸들러가 동작한다. 그리고 가장 최상단의 조상 요소를 만날 때까지 이 과정이 반복되면서 요소 각각에 할당된 핸들러가 동작하게 됨
+event.target > 내가 일으킨 이벤트의 진짜 태그
+event.currentTarget > addEventListner를 한 태그
+버블링 막을 땐 event.stopPropagation()
+
+캡처링 : 버블링 반대, 이벤트가 하위 요소로 전파되는 단계(잘 쓰이지 않음)
+ex) 팝업 창을 띄웠는데 팝업 창 밖(부모 요소)을 눌렀을 때 창 꺼지도록 > 부모 태그에서 자식 태그로 내려가는 이벤트
 -->
