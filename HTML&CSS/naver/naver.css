@@ -8,7 +8,19 @@ body {
   padding: 0;
 }
 
-#header-container {
+a {
+  text-decoration: none;
+}
+.blind {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
+
+.center-align {
   margin: 0 auto;
   width: 1130px;
 }
@@ -71,11 +83,67 @@ body {
   vertical-align: middle;
 }
 
-.blind {
-  position: absolute;
-  clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+  line-height: 30px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+nav ul a {
+  color: #03c75a;
+}
+nav ul li {
+  display: inline-block;
+  height: 30px;
+}
+
+/* 이미지 스프라이트 적용 span */
+nav ul li span:first-child {
+  display: inline-block;
+  background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_bf79fd.png);
+  background-size: 444px 439px;
+  -webkit-background-size: 444px 439px;
+  background-repeat: no-repeat;
+}
+
+nav ul li a {
+  margin-left: 12px;
+}
+
+nav ul li:first-child a {
+  margin-left: 0;
+}
+
+.nav_mail {
+  /* nav ul li:first-child span:first-child */
+  width: 21px;
+  height: 21px;
+  background-position: -420px -279px;
+  vertical-align: top;
+  margin: 3px 9px 0 0 !important;
+}
+
+.nav_shopping {
+  width: 24px;
+  height: 20px;
+  background-position: -420px -232px;
+  vertical-align: top;
+}
+
+.nav_shoppingLIVE {
+  width: 54px;
+  height: 20px;
+  background-position: -202px -306px;
+  vertical-align: top;
+}
+
+.nav_tv {
+  width: 12px;
+  height: 14px;
+  background-position: -256px -212px;
+  vertical-align: top;
+  margin: 9px 2px 0 0;
 }
