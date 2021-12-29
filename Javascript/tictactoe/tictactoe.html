@@ -94,22 +94,9 @@
         return false;
       }
 
-      // 컴퓨터 수 두는 함수
-      function computerDo() {
-        const emptyCells = rows.flat().filter((v) => !v.textContent); // 빈칸 찾기
-        const index = Math.floor(Math.random() * emptyCells.flat().length);
-        const randomCell = emptyCells[index];
-        randomCell.textContent = 'X';
-        console.log(emptyCells, randomCell);
-        turn = turn === 'X' ? 'O' : 'X';
-      }
-
-      function onGame(event) {
-        if (event.target.textContent) return; // 칸에 글자가 있으면 함수 끝내기
-        event.target.textContent = turn; // 칸 채우기
-
+      function checkWinnerAndDraw(target) {
         // 승부 판단하기
-        if (checkWinner(event.target)) {
+        if (checkWinner(target)) {
           $result.textContent = `${turn}님이 승리!`;
           $table.removeEventListener('click', onGame); //승리하면 event remove
           return;
@@ -123,10 +110,31 @@
 
         // 턴 넘기기
         turn = turn === 'O' ? 'X' : 'O'; // === > 삼항 > 대입
+      }
+
+      // 컴퓨터 수 두는 함수
+      function computerDo() {
+        const emptyCells = rows.flat().filter((v) => !v.textContent); // 빈칸 찾기
+        // console.log(Array.isArray(emptyCells));
+        const index = Math.floor(Math.random() * emptyCells.flat().length); // 랜덤 인덱스
+        const randomCell = emptyCells[index];
+        randomCell.textContent = 'X';
+        checkWinnerAndDraw(randomCell);
+        clickable = true;
+      }
+
+      let clickable = true;
+      function onGame(event) {
+        if (!clickable) return; // 컴퓨터 차례 동안은 못 누름
+        if (event.target.textContent) return; // 칸에 글자가 있으면 이벤트 끝내기
+        event.target.textContent = turn; // 칸 채우기
+
+        checkWinnerAndDraw(event.target);
 
         // 컴퓨터가 수 놓기
         if (turn === 'X') {
-          computerDo();
+          clickable = false;
+          setTimeout(computerDo, 1000);
         }
       }
 
