@@ -188,18 +188,22 @@ ex) 팝업 창을 띄웠는데 팝업 창 밖(부모 요소)을 눌렀을 때 �
 
 유사 배열 객체
 배열은 console에서 (숫자)로 시작함
-태그.children은 유사배열임(배열 메서드 사용불가), Array.from(태그)로 배열로 변경 가능
+태그.children은 유사배열임(배열 메서드 사용불가), array.from(태그)로 배열로 변경 가능
 
 무승부 체크할 때 forEach로 돌면 처음에 빈칸 아닌 게 있는데도 끝까지 확인함 -> 비효율적
 따라서 every, some 함수 이용(1차원 배열에 사용 가능 -> flat 이용)
-Array.flat() : N차원 배열을 N-1차원으로
+array.flat() : N차원 배열을 N-1차원으로
 
-Array.every()은 모두가 true면 true 하나라도 false면 false
-Array.some()은 하나라도 true면 true, 모두다 false면 false
+array.every()은 모두가 true면 true 하나라도 false면 false
+array.some()은 하나라도 true면 true, 모두다 false면 false
 
 예시 )
-Array.flat().every((element) => element.textContent) // 모두 true면 true
+array.flat().every((element) => element.textContent) // 모두 true면 true
 const some = Array.some((value) => value === null); // 하나라도 null이면 true
 
 false : 문자열의 빈 문자열, boolean false, 숫자 0, null, undefined, NaN
+
+array.filter() : 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환
+
+예시에서 사용하는 array와 Array 객체는 다름을 유의하자
 -->
