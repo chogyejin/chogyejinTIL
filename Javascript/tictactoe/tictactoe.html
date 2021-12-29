@@ -43,28 +43,6 @@
         $table.append($tr);
       }
 
-      //
-      function onGame(event) {
-        if (event.target.textContent) return; // 칸에 글자가 있으면 함수 끝내기
-        event.target.textContent = turn; // 칸 채우기
-
-        // 승부 판단하기
-        if (checkWinner(event.target)) {
-          $result.textContent = `${turn}님이 승리!`;
-          $table.removeEventListener('click', onGame);
-          return;
-        }
-
-        // 무승부(승자 없고, 칸이 꽉 참)
-        if (checkDraw()) {
-          $result.textContent = '무승부';
-          return;
-        }
-
-        // 턴 넘기기
-        turn = turn === 'O' ? 'X' : 'O'; // === > 삼항 > 대입
-      }
-
       // 승부 판단 함수
       function checkWinner(target) {
         // target은 td
@@ -114,6 +92,42 @@
           return true;
         }
         return false;
+      }
+
+      // 컴퓨터 수 두는 함수
+      function computerDo() {
+        const emptyCells = rows.flat().filter((v) => !v.textContent); // 빈칸 찾기
+        const index = Math.floor(Math.random() * emptyCells.flat().length);
+        const randomCell = emptyCells[index];
+        randomCell.textContent = 'X';
+        console.log(emptyCells, randomCell);
+        turn = turn === 'X' ? 'O' : 'X';
+      }
+
+      function onGame(event) {
+        if (event.target.textContent) return; // 칸에 글자가 있으면 함수 끝내기
+        event.target.textContent = turn; // 칸 채우기
+
+        // 승부 판단하기
+        if (checkWinner(event.target)) {
+          $result.textContent = `${turn}님이 승리!`;
+          $table.removeEventListener('click', onGame); //승리하면 event remove
+          return;
+        }
+
+        // 무승부(승자 없고, 칸이 꽉 참)
+        if (checkDraw()) {
+          $result.textContent = '무승부';
+          return;
+        }
+
+        // 턴 넘기기
+        turn = turn === 'O' ? 'X' : 'O'; // === > 삼항 > 대입
+
+        // 컴퓨터가 수 놓기
+        if (turn === 'X') {
+          computerDo();
+        }
       }
 
       // 이벤트 버블링
