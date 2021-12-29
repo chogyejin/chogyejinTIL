@@ -56,7 +56,7 @@
         }
 
         // 무승부(승자 없고, 칸이 꽉 참)
-        if (drawGame()) {
+        if (checkDraw()) {
           $result.textContent = '무승부';
           return;
         }
@@ -67,17 +67,9 @@
 
       // 승부 판단 함수
       function checkWinner(target) {
-        let rowIndex;
-        let cellIndex;
-
-        rows.forEach((row, ri) => {
-          row.forEach((cell, ci) => {
-            if (cell === target) {
-              rowIndex = ri;
-              cellIndex = ci;
-            }
-          });
-        });
+        // target은 td
+        const rowIndex = target.parentNode.rowIndex; // tr 인덱스
+        const cellIndex = target.cellIndex; // td 인덱스
 
         // 승자 생기면 true
         let hasWinner = false;
@@ -116,24 +108,12 @@
       }
 
       // 무승부 체크 함수
-      function drawGame() {
-        let draw = false;
-        let count = 0;
-        let length = 0;
-        rows.forEach((row) => {
-          row.forEach((cell) => {
-            length += 1;
-            if (cell.textContent !== '') {
-              count += 1;
-            }
-          });
-        });
-
-        if (count === length) {
-          draw = true;
+      function checkDraw() {
+        // 모든 칸이 채워져있으면
+        if (rows.flat().every((cell) => cell.textContent)) {
+          return true;
         }
-
-        return draw;
+        return false;
       }
 
       // 이벤트 버블링
@@ -183,4 +163,21 @@ event.currentTarget > addEventListner를 한 태그
 
 캡처링 : 버블링 반대, 이벤트가 하위 요소로 전파되는 단계(잘 쓰이지 않음)
 ex) 팝업 창을 띄웠는데 팝업 창 밖(부모 요소)을 눌렀을 때 창 꺼지도록 > 부모 태그에서 자식 태그로 내려가는 이벤트
+
+유사 배열 객체
+배열은 console에서 (숫자)로 시작함
+태그.children은 유사배열임(배열 메서드 사용불가), Array.from(태그)로 배열로 변경 가능
+
+무승부 체크할 때 forEach로 돌면 처음에 빈칸 아닌 게 있는데도 끝까지 확인함 -> 비효율적
+따라서 every, some 함수 이용(1차원 배열에 사용 가능 -> flat 이용)
+Array.flat() : N차원 배열을 N-1차원으로
+
+Array.every()은 모두가 true면 true 하나라도 false면 false
+Array.some()은 하나라도 true면 true, 모두다 false면 false
+
+예시 )
+Array.flat().every((element) => element.textContent) // 모두 true면 true
+const some = Array.some((value) => value === null); // 하나라도 null이면 true
+
+false : 문자열의 빈 문자열, boolean false, 숫자 0, null, undefined, NaN
 -->
