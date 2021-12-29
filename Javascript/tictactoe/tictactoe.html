@@ -43,12 +43,101 @@
         $table.append($tr);
       }
 
-      // 이벤트 버블링
-      $table.addEventListener('click', (event) => {
+      //
+      function onGame(event) {
         if (event.target.textContent) return; // 칸에 글자가 있으면 함수 끝내기
-        event.target.textContent = turn;
+        event.target.textContent = turn; // 칸 채우기
+
+        // 승부 판단하기
+        if (checkWinner(event.target)) {
+          $result.textContent = `${turn}님이 승리!`;
+          $table.removeEventListener('click', onGame);
+          return;
+        }
+
+        // 무승부(승자 없고, 칸이 꽉 참)
+        if (drawGame()) {
+          $result.textContent = '무승부';
+          return;
+        }
+
+        // 턴 넘기기
         turn = turn === 'O' ? 'X' : 'O'; // === > 삼항 > 대입
-      });
+      }
+
+      // 승부 판단 함수
+      function checkWinner(target) {
+        let rowIndex;
+        let cellIndex;
+
+        rows.forEach((row, ri) => {
+          row.forEach((cell, ci) => {
+            if (cell === target) {
+              rowIndex = ri;
+              cellIndex = ci;
+            }
+          });
+        });
+
+        // 승자 생기면 true
+        let hasWinner = false;
+        // 가로줄 검사
+        if (
+          rows[rowIndex][0].textContent === turn &&
+          rows[rowIndex][1].textContent === turn &&
+          rows[rowIndex][2].textContent === turn
+        ) {
+          hasWinner = true;
+        }
+        // 세로줄 검사
+        if (
+          rows[0][cellIndex].textContent === turn &&
+          rows[1][cellIndex].textContent === turn &&
+          rows[2][cellIndex].textContent === turn
+        ) {
+          hasWinner = true;
+        }
+        // 대각선 검사
+        if (
+          rows[0][0].textContent === turn &&
+          rows[1][1].textContent === turn &&
+          rows[2][2].textContent === turn
+        ) {
+          hasWinner = true;
+        }
+        if (
+          rows[0][2].textContent === turn &&
+          rows[1][1].textContent === turn &&
+          rows[2][0].textContent === turn
+        ) {
+          hasWinner = true;
+        }
+        return hasWinner;
+      }
+
+      // 무승부 체크 함수
+      function drawGame() {
+        let draw = false;
+        let count = 0;
+        let length = 0;
+        rows.forEach((row) => {
+          row.forEach((cell) => {
+            length += 1;
+            if (cell.textContent !== '') {
+              count += 1;
+            }
+          });
+        });
+
+        if (count === length) {
+          draw = true;
+        }
+
+        return draw;
+      }
+
+      // 이벤트 버블링
+      $table.addEventListener('click', onGame);
       body.append($table);
       body.append($result);
     </script>
