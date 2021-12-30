@@ -47,19 +47,101 @@
       const $gameMenu = document.querySelector('#game-menu');
       const $battleMenu = document.querySelector('#battle-menu');
       const $heroName = document.querySelector('#hero-name');
+      const $heroLevel = document.querySelector('#hero-level');
+      const $heroHp = document.querySelector('#hero-hp');
+      const $heroXp = document.querySelector('#hero-xp');
+      const $heroAtt = document.querySelector('#hero-att');
+      const $monsterName = document.querySelector('#monster-name');
+      const $monsterHp = document.querySelector('#monster-hp');
+      const $monsterAtt = document.querySelector('#monster-att');
+      const $message = document.querySelector('#message');
 
+      const hero = {
+        // 스탯 초기화
+        name: '',
+        lev: 1,
+        maxHp: 100,
+        hp: 100,
+        xp: 0,
+        att: 10,
+      };
+      let monster = null;
+      const monsterList = [
+        {
+          name: '슬라임',
+          hp: 25,
+          att: 10,
+          xp: 10,
+        },
+        {
+          name: '주황버섯',
+          hp: 50,
+          att: 15,
+          xp: 20,
+        },
+        {
+          name: '와일드카고',
+          hp: 150,
+          att: 35,
+          xp: 50,
+        },
+      ];
+
+      // 처음 시작
       $startScreen.addEventListener('submit', (event) => {
         event.preventDefault();
         const name = event.target['name-input'].value; // form 안의 id 이용
         $startScreen.style.display = 'none';
         $gameMenu.style.display = 'block';
         $heroName.textContent = name;
+        hero.name = name;
+        $heroLevel.textContent = `${hero.lev}레벨`;
+        $heroHp.textContent = `체력 : ${hero.hp} / ${hero.maxHp}`;
+        $heroXp.textContent = `경험치 : ${hero.xp} / ${hero.lev * 15}`;
+        $heroAtt.textContent = `공격력 : ${hero.att}`;
+      });
+
+      // 게임 모드(모험, 휴식, 종료) 선택
+      $gameMenu.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const input = event.target['menu-input'].value;
+        if (input === '1') {
+          $gameMenu.style.display = 'none';
+          $battleMenu.style.display = 'block';
+          monster = JSON.parse(
+            JSON.stringify(
+              monsterList[Math.floor(Math.random() * monsterList.length)],
+            ),
+          );
+          monster.maxHp = monster.hp; // 최대체력 프로퍼티 추가
+          $monsterName.textContent = monster.name;
+          $monsterHp.textContent = `체력 : ${monster.hp} / ${monster.maxHp}`;
+          $monsterAtt.textContent = `공격력 : ${monster.att}`;
+        } else if (input === '2') {
+        } else if (input === '3') {
+        }
       });
     </script>
   </body>
 </html>
 
 <!-- 
+객체의 깊은 복사와 참조
+monsterList 배열에서 랜덤하게 몬스터 뽑아와야 하는데 참조를 하게 되면 배열 데이터가 바뀌게 됨 > 깊은 복사 필요
+하지만 성능이 좋지 않고 Math나 Date 객체 등 복사가 되지 않는 객체도 있어 보통 lodash 같은 라이브러리 사용
 
-  
+예시 ) 
+const monster1 = JSON.parse(JSON.stringify(monsterList[0])); // 깊은 복사, 아예 모두 복사
+const monster2 = monsterList[0]; // 참조 
+const monster3 = { ...monsterList[0]}; // 얕은 복사, 겉([],{})은 복사, 안(원시 값 아닌 값)은 참조
+
+monsterList[0] === monster1 // false, 복사만 해옴
+monsterList[0] === monster2 // true, monster2.속성 바꾸면 monsterList[0]도 바뀜
+monsterList[0] === monster3 // false
+
+배열의 얕은 복사 )
+const arr = [{ a: 'a'}, { b: 'b'}];
+const copyArr = [...arr] 혹은 arr.slice()
+arr === copyArr; // false, 배열 변수 자체는 다르지만
+arr[0] === copyArr[0]; // true,   
  -->
