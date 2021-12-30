@@ -64,6 +64,14 @@
         hp: 100,
         xp: 0,
         att: 10,
+        attack(monster) {
+          monster.hp -= this.att;
+          this.hp -= moster.att;
+        },
+        heal(monster) {
+          this.hp += 20;
+          this.hp -= monster.att;
+        },
       };
       let monster = null;
       const monsterList = [
@@ -121,6 +129,21 @@
         } else if (input === '3') {
         }
       });
+
+      // 전투 모드(공격, 회복, 도망)
+      $battleMenu.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const input = event.target['battle-input'].value;
+        if (input === '1') {
+          hero.attack(monster);
+          // monster.attack(hero);
+          $heroHp.textContent = `체력 : ${hero.hp} / ${hero.maxHp}`;
+          $monsterHp.textContent = `체력 : ${monster.hp} / ${monster.maxHp}`;
+          $message.textContent = `${hero.att}의 데미지 입힘, ${monster.att} 데미지 받음`;
+        } else if (input === '2') {
+        } else if (input === '3') {
+        }
+      });
     </script>
   </body>
 </html>
@@ -144,4 +167,12 @@ const arr = [{ a: 'a'}, { b: 'b'}];
 const copyArr = [...arr] 혹은 arr.slice()
 arr === copyArr; // false, 배열 변수 자체는 다르지만
 arr[0] === copyArr[0]; // true,   
+
+this
+객체 프로퍼티로 함수를 정의할 때 함수이름(매개변수) 형태로 사용(함수이름: function(매개변수)),
+화살표 함수 사용시 this가 기본적으로 window 객체를 가리킴
+생성자 함수에서 this : new 함수()를 했을 때 어떤 객체가 하나 만들어지고 그것을 가리킴, 함수의 return은 그 객체
+
+과거엔 함수나 생성자 함수로 직접 객체를 만들어냈지만 2015년 클래스 문법 탄생(class, constructor 이용)
+
  -->
