@@ -196,18 +196,28 @@
         }
       }
 
-      class Hero {
-        constructor(game, name) {
-          this.game = game; // new Hero(game1, '캐릭터')
+      class Unit {
+        constructor(game, name, hp, xp, att) {
+          this.game = game;
           this.name = name;
-          this.lev = 1;
-          this.maxHp = 100;
-          this.hp = 100;
-          this.xp = 0;
-          this.att = 10;
+          this.maxHp = hp;
+          this.hp = hp;
+          this.xp = xp;
+          this.att = att;
         }
         attack(target) {
           target.hp -= this.att;
+        }
+      }
+
+      class Hero extends Unit {
+        constructor(game, name) {
+          super(game, name, 100, 0, 10); // 부모 constructor 실행
+          this.lev = 1;
+        }
+        attack(target) {
+          super.attack(target); // 부모 method 실행
+          console.log('영웅이 공격했다');
         }
         heal(monster) {
           this.hp += 20;
@@ -227,17 +237,13 @@
         }
       }
 
-      class Monster {
+      class Monster extends Unit {
         constructor(game, name, hp, xp, att) {
-          this.game = game;
-          this.name = name;
-          this.maxHp = hp;
-          this.hp = hp;
-          this.xp = xp;
-          this.att = att;
+          super(game, name, hp, xp, att);
         }
         attack(target) {
-          target.hp -= this.att;
+          super.attack(target);
+          console.log('몬스터가 공격했다');
         }
       }
 
@@ -297,4 +303,7 @@ document.addEventListener('click', () => {
 
 과거엔 함수나 생성자 함수로 직접 객체를 만들어냈지만 2015년 클래스 문법 탄생(class, constructor 이용)
 
+클래스들의 공통된 항목을 묶어 새 클래스를 만들고 이 클래스를 상속시키면 중복 제거 가능
+super() : 자식 클래스에서 부모의 constructor 실행
+super.함수() : 부모의 함수 호출(완전히 같지 않고 비슷할 때 공통 부분만 묶음)
  -->
