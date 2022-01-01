@@ -113,8 +113,12 @@
             this.showMessage(`${this.monster.name} 마주쳤다`);
           } else if (input === '2') {
             // 휴식
+            this.hero.hp = this.hero.maxHp;
+            this.updateHeroStat();
+            this.showMessage('휴식을 취했다');
           } else if (input === '3') {
             // 종료
+            this.showMessage('게임 종료');
             this.quit();
           }
         };
