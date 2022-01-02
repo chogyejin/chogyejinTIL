@@ -29,6 +29,86 @@ a {
   text-decoration: none;
 }
 
+#header-top {
+  float: right;
+}
+
+#header-top span:first-child {
+  float: left;
+  font-size: 11px;
+  color: #404040;
+}
+
+#header-top #setHome-link {
+  float: left;
+  font-size: 11px;
+  color: #404040;
+}
+
+#header-top #setHome-link::after {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  background-position: -373px -352px;
+  background-repeat: no-repeat;
+  vertical-align: top;
+  content: '';
+  margin: -3px 0 0 3px;
+  background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_bf79fd.png);
+  -webkit-background-size: 444px 439px;
+  background-size: 444px 439px;
+  background-repeat: no-repeat;
+}
+#header-top #header-top-bar {
+  float: left;
+  width: 1px;
+  height: 10px;
+  margin: 3px 7px;
+  background-color: #e4e8eb;
+}
+
+#header-top #junior-link {
+  display: inline-block;
+  width: 60px;
+  height: 10px;
+  line-height: 16px;
+  background-position: -285px -267px;
+  background-repeat: no-repeat;
+  vertical-align: top;
+  margin: 3px;
+  background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_bf79fd.png);
+  -webkit-background-size: 444px 439px;
+  background-size: 444px 439px;
+  background-repeat: no-repeat;
+}
+
+#header-top #junior-link:hover {
+  background-position: -347px -267px;
+}
+
+#header-top #happybean-link {
+  display: inline-block;
+  width: 34px;
+  height: 11px;
+  background-position: -380px -199px;
+  background-repeat: no-repeat;
+  vertical-align: top;
+  margin: 3px 3px 2px;
+  background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_bf79fd.png);
+  -webkit-background-size: 444px 439px;
+  background-size: 444px 439px;
+  background-repeat: no-repeat;
+  margin-left: 6px;
+}
+
+#header-top #happybean-link:hover {
+  background-position: -220px -144px;
+}
+
+#header-search {
+  clear: both; /*header-top의 float:right 영향을 안 받게*/
+}
+
 #header-search h1 {
   display: inline-block;
   width: 222px;
