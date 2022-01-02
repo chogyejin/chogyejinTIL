@@ -151,10 +151,19 @@
             this.updateHeroStat();
             this.updateMonsterStat();
           } else if (input === '2') {
-            // 회복
+            // 회복, hp는 maxHp 못 넘음.
+            // 최대체력과 현재체력+20 중 작은 값 선택
+            const { hero, monster } = this;
+            hero.heal(monster);
+            hero.hp = Math.min(hero.maxHp, hero.hp);
+            this.showMessage('힐 사용!');
+            this.updateHeroStat();
           } else if (input === '3') {
             // 도망
             this.changeScreen('game');
+            this.showMessage('도망가기');
+            this.monster = null;
+            this.updateMonsterStat();
           }
         };
         updateHeroStat() {
