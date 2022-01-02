@@ -25,12 +25,17 @@ a {
   width: 1130px;
 }
 
+header {
+  height: 160px;
+}
+
 #header-search a {
   text-decoration: none;
 }
 
 #header-top {
   float: right;
+  padding-top: 12px;
 }
 
 #header-top span:first-child {
