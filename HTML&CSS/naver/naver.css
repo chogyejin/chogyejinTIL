@@ -6,6 +6,8 @@ html,
 body {
   margin: 0;
   padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕',
+    helvetica, 'Apple SD Gothic Neo', sans-serif;
 }
 
 a {
@@ -168,6 +170,20 @@ header {
   vertical-align: middle;
 }
 
+nav {
+  height: 52px;
+  position: relative;
+  -webkit-box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%);
+  border-top: 1px solid #d1d8e4;
+}
+
+nav #nav-inner {
+  overflow: hidden;
+  position: relative;
+  padding: 11px 270px 11px 0;
+}
+
 nav ul {
   margin: 0;
   padding: 0;
@@ -194,7 +210,7 @@ nav ul li span:first-child {
   background-repeat: no-repeat;
 }
 
-nav ul li a {
+nav ul li {
   margin-left: 12px;
 }
 
@@ -216,6 +232,8 @@ nav ul li:first-child a {
   height: 20px;
   background-position: -420px -232px;
   vertical-align: top;
+  position: relative;
+  top: 5px;
 }
 
 .nav_shoppingLIVE {
@@ -223,6 +241,8 @@ nav ul li:first-child a {
   height: 20px;
   background-position: -202px -306px;
   vertical-align: top;
+  position: relative;
+  top: 5px;
 }
 
 .nav_tv {
@@ -231,4 +251,16 @@ nav ul li:first-child a {
   background-position: -256px -212px;
   vertical-align: top;
   margin: 9px 2px 0 0;
+}
+
+#search-ranking {
+  position: absolute;
+  top: 0;
+  right: 250px;
+  padding: 16px 0;
+}
+#ranking-number {
+  margin-top: -9px;
+  color: #00ab33;
+  font-size: 16px;
 }
