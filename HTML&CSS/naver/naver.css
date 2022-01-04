@@ -301,3 +301,9 @@ nav ul li:first-child a {
   color: #00ab33;
   font-size: 16px;
 }
+
+main {
+  /* 마진 상쇄 해결 */
+  display: inline-block;
+  width: 100%;
+}
