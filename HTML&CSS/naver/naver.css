@@ -307,3 +307,101 @@ main {
   display: inline-block;
   width: 100%;
 }
+
+#main-container {
+  padding: 8px 10px 0;
+  margin: 0 auto;
+}
+
+#main-ad {
+  display: inline-block;
+  width: 740px;
+  height: 120px;
+  border: 1px solid black;
+  background: #555;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+#main-login {
+  display: inline-block;
+  width: 332px;
+  height: 120px;
+  border: 1px solid black;
+  vertical-align: top;
+}
+
+.main-inline-block {
+  display: inline-block;
+}
+
+#main-second-block .main-inline-block:first-child {
+  width: 740px;
+}
+
+#main-second-block .main-inline-block:last-child {
+  width: 332px;
+  vertical-align: top;
+}
+
+#main-newstand-header {
+  display: inline-block;
+  width: 740px;
+  height: 46px;
+  border: 1px solid black;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+#main-newstand-title {
+  display: inline-block;
+  width: 740px;
+  height: 246px;
+  border: 1px solid black;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+#main-weather {
+  display: inline-block;
+  width: 332px;
+  height: 150px;
+  border: 1px solid black;
+  margin-bottom: 8px;
+}
+
+#main-second-ad {
+  display: inline-block;
+  width: 332px;
+  height: 150px;
+  background: #555;
+  margin-bottom: 8px;
+}
+
+#main-category {
+  display: inline-block;
+  width: 740px;
+  height: 837px;
+  border: 1px solid black;
+}
+
+#main-shopping {
+  display: inline-block;
+  width: 332px;
+  height: 837px;
+  border: 1px solid black;
+}
+
+#main-event {
+  display: inline-block;
+  width: 740px;
+  height: 130px;
+  border: 1px solid black;
+}
+
+#main-third-ad {
+  display: inline-block;
+  width: 332px;
+  height: 130px;
+  background: #555;
+}
