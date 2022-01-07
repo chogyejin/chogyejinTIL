@@ -306,11 +306,11 @@ main {
   /* 마진 상쇄 해결 */
   display: inline-block;
   width: 100%;
+  margin: 0 auto;
 }
 
 #main-container {
   padding: 8px 10px 0;
-  margin: 0 auto;
 }
 
 #main-ad {
@@ -337,6 +337,7 @@ main {
 
 #main-second-block .main-inline-block:first-child {
   width: 740px;
+  margin-right: 8px;
 }
 
 #main-second-block .main-inline-block:last-child {
@@ -356,7 +357,7 @@ main {
 #main-newstand-title {
   display: inline-block;
   width: 740px;
-  height: 246px;
+  height: 254px;
   border: 1px solid black;
   margin-right: 8px;
   margin-bottom: 8px;
