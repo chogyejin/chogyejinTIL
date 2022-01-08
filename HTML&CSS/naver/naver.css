@@ -13,6 +13,16 @@ body {
 a {
   text-decoration: none;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
 .blind {
   position: absolute;
   clip: rect(0 0 0 0);
@@ -29,6 +39,10 @@ a {
 
 header {
   height: 160px;
+}
+
+#header-search {
+  padding-top: 19px;
 }
 
 #header-search a {
@@ -345,7 +359,7 @@ main {
   vertical-align: top;
 }
 
-#main-newstand-header {
+#main-newsstand-header {
   display: inline-block;
   width: 740px;
   height: 46px;
@@ -354,13 +368,44 @@ main {
   margin-bottom: 8px;
 }
 
-#main-newstand-title {
+#main-newsstand-header h3,
+#main-newsstand-header ol {
+  display: inline-block;
+}
+
+#main-newsstand-title {
   display: inline-block;
   width: 740px;
   height: 254px;
   border: 1px solid black;
   margin-right: 8px;
   margin-bottom: 8px;
+}
+
+#main-newsstand-title h3 {
+  height: 45px;
+  border-bottom: 1px solid #ebeef3;
+}
+
+#main-newsstand-title ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#main-newsstand-title li {
+  float: left;
+  width: 123px;
+  height: 67px;
+  border-right: 1px solid #f1f3f6;
+  border-bottom: 1px solid #f1f3f6;
+  text-align: center;
+}
+
+#main-newsstand-title li img {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #main-weather {
