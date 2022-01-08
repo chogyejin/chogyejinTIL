@@ -320,11 +320,10 @@ main {
   /* 마진 상쇄 해결 */
   display: inline-block;
   width: 100%;
-  margin: 0 auto;
 }
 
 #main-container {
-  padding: 8px 10px 0;
+  padding: 8px 10px;
 }
 
 #main-ad {
@@ -339,7 +338,7 @@ main {
 
 #main-login {
   display: inline-block;
-  width: 332px;
+  width: 348px;
   height: 120px;
   border: 1px solid black;
   vertical-align: top;
@@ -388,6 +387,7 @@ main {
 }
 
 #main-newsstand-title ul {
+  display: inline-block; /*ul이 height 갖도록*/
   margin: 0;
   padding: 0;
   list-style: none;
@@ -395,7 +395,7 @@ main {
 
 #main-newsstand-title li {
   float: left;
-  width: 123px;
+  width: calc(100% / 6);
   height: 67px;
   border-right: 1px solid #f1f3f6;
   border-bottom: 1px solid #f1f3f6;
@@ -410,7 +410,7 @@ main {
 
 #main-weather {
   display: inline-block;
-  width: 332px;
+  width: 348px;
   height: 150px;
   border: 1px solid black;
   margin-bottom: 8px;
@@ -418,7 +418,7 @@ main {
 
 #main-second-ad {
   display: inline-block;
-  width: 332px;
+  width: 348px;
   height: 150px;
   background: #555;
   margin-bottom: 8px;
@@ -427,15 +427,23 @@ main {
 #main-category {
   display: inline-block;
   width: 740px;
-  height: 837px;
+  height: 1539px;
   border: 1px solid black;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  vertical-align: top;
 }
 
 #main-shopping {
   display: inline-block;
-  width: 332px;
-  height: 837px;
-  border: 1px solid black;
+  width: 350px;
+  height: 1539px;
+  margin-bottom: 8px;
+}
+
+#main-shopping iframe {
+  width: 100%;
+  height: 100%;
 }
 
 #main-event {
@@ -443,11 +451,13 @@ main {
   width: 740px;
   height: 130px;
   border: 1px solid black;
+  margin-right: 8px;
 }
 
 #main-third-ad {
   display: inline-block;
-  width: 332px;
+  width: 348px;
   height: 130px;
   background: #555;
+  vertical-align: top;
 }
