@@ -13,6 +13,11 @@ body {
 a {
   text-decoration: none;
 }
+
+ul {
+  margin: 0;
+}
+
 .blind {
   position: absolute;
   clip: rect(0 0 0 0);
@@ -298,10 +303,12 @@ nav #nav-inner {
 }
 
 #search-ranking ul {
+  list-style: none;
+}
+
+#ranking-hover {
   display: none;
   margin: 0;
-  padding: 17px;
-  list-style: none;
   width: 348px;
   height: 334px;
   border: 1px solid black;
@@ -309,9 +316,10 @@ nav #nav-inner {
   right: 0;
   top: -14px;
   background: white;
+  padding: 15px;
 }
 
-#search-ranking:hover ul {
+#search-ranking:hover #ranking-hover {
   display: inline-block;
 }
 
@@ -324,6 +332,71 @@ nav #nav-inner {
 #ranking-title {
   letter-spacing: -1px;
   font-size: 14px;
+}
+
+#ranking-header {
+  padding-bottom: 15px;
+}
+
+#ranking-rankbutton {
+  border: 1px solid #bababa;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+#rankbutton-first {
+  width: calc((100%-30) / 2);
+  text-align: center;
+  float: right;
+  border-right: 1px solid #bababa;
+}
+
+#rankbutton-second {
+  width: calc((100%-30) / 2);
+  text-align: center;
+  float: right;
+  background-color: #f6f6f6;
+  color: silver;
+}
+
+.ranking-words {
+  border-bottom: 1px solid #bababa;
+}
+
+.ranking-words ul {
+  margin: 5px 0;
+}
+
+#ranking-words-second {
+  display: none;
+}
+
+#rankbutton-second:hover {
+  background-color: white;
+  color: black;
+}
+
+#rankbutton-second:hover + #rankbutton-first {
+  background-color: #f6f6f6;
+  color: silver;
+}
+
+.ranking-number {
+  font-weight: bolder;
+  display: inline-block;
+  width: 20px;
+}
+
+.ranking-title {
+  font-size: 13px;
+}
+
+#ranking-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  position: relative;
+  top: 6px;
 }
 
 main {
