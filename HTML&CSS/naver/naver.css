@@ -19,7 +19,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+ul {
   margin: 0;
 }
 
@@ -230,12 +231,11 @@ nav {
 }
 
 nav #nav-inner {
-  overflow: hidden;
   position: relative;
   padding: 11px 270px 11px 0;
 }
 
-nav ul {
+#nav-menu {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -244,16 +244,16 @@ nav ul {
   font-weight: 700;
   letter-spacing: -0.3px;
 }
-nav ul a {
+#nav-menu a {
   color: #03c75a;
 }
-nav ul li {
+#nav-menu li {
   display: inline-block;
   height: 30px;
 }
 
 /* 이미지 스프라이트 적용 span */
-nav ul li span:first-child {
+#nav-menu li span:first-child {
   display: inline-block;
   background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_bf79fd.png);
   background-size: 444px 439px;
@@ -261,11 +261,11 @@ nav ul li span:first-child {
   background-repeat: no-repeat;
 }
 
-nav ul li {
+#nav-menu li {
   margin-left: 12px;
 }
 
-nav ul li:first-child a {
+#nav-menu li:first-child a {
   margin-left: 0;
 }
 
@@ -306,14 +306,107 @@ nav ul li:first-child a {
 
 #search-ranking {
   position: absolute;
-  top: 0;
-  right: 250px;
-  padding: 16px 0;
+  top: 14px;
+  right: 0;
+  width: 198px;
+  height: 20px;
 }
+
+#search-ranking ul {
+  list-style: none;
+}
+
+#ranking-hover {
+  display: none;
+  margin: 0;
+  width: 348px;
+  height: 334px;
+  border: 1px solid black;
+  position: absolute;
+  right: 0;
+  top: -14px;
+  background: white;
+  padding: 15px;
+}
+
+#search-ranking:hover #ranking-hover {
+  display: inline-block;
+}
+
 #ranking-number {
   margin-top: -9px;
   color: #00ab33;
   font-size: 16px;
+}
+
+#ranking-title {
+  letter-spacing: -1px;
+  font-size: 14px;
+}
+
+#ranking-header {
+  padding-bottom: 15px;
+}
+
+#ranking-rankbutton {
+  border: 1px solid #bababa;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+#rankbutton-first {
+  width: calc((100%-30) / 2);
+  text-align: center;
+  float: right;
+  border-right: 1px solid #bababa;
+}
+
+#rankbutton-second {
+  width: calc((100%-30) / 2);
+  text-align: center;
+  float: right;
+  background-color: #f6f6f6;
+  color: silver;
+}
+
+.ranking-words {
+  border-bottom: 1px solid #bababa;
+}
+
+.ranking-words ul {
+  margin: 5px 0;
+}
+
+#ranking-words-second {
+  display: none;
+}
+
+#rankbutton-second:hover {
+  background-color: white;
+  color: black;
+}
+
+#rankbutton-second:hover + #rankbutton-first {
+  background-color: #f6f6f6;
+  color: silver;
+}
+
+.ranking-number {
+  font-weight: bolder;
+  display: inline-block;
+  width: 20px;
+}
+
+.ranking-title {
+  font-size: 13px;
+}
+
+#ranking-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  position: relative;
+  top: 6px;
 }
 
 main {
