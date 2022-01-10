@@ -14,6 +14,12 @@ a {
   text-decoration: none;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 ul {
   margin: 0;
 }
@@ -34,6 +40,10 @@ ul {
 
 header {
   height: 160px;
+}
+
+#header-search {
+  padding-top: 19px;
 }
 
 #header-search a {
@@ -403,4 +413,144 @@ main {
   /* 마진 상쇄 해결 */
   display: inline-block;
   width: 100%;
+}
+
+#main-container {
+  padding: 8px 10px;
+}
+
+#main-ad {
+  display: inline-block;
+  width: 740px;
+  height: 120px;
+  border: 1px solid black;
+  background: #555;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+#main-login {
+  display: inline-block;
+  width: 348px;
+  height: 120px;
+  border: 1px solid black;
+  vertical-align: top;
+}
+
+.main-inline-block {
+  display: inline-block;
+}
+
+#main-second-block .main-inline-block:first-child {
+  width: 740px;
+  margin-right: 8px;
+}
+
+#main-second-block .main-inline-block:last-child {
+  width: 332px;
+  vertical-align: top;
+}
+
+#main-newsstand-header {
+  display: inline-block;
+  width: 740px;
+  height: 46px;
+  border: 1px solid black;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+#main-newsstand-header h3,
+#main-newsstand-header ol {
+  display: inline-block;
+}
+
+#main-newsstand-title {
+  display: inline-block;
+  width: 740px;
+  height: 254px;
+  border: 1px solid black;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+#main-newsstand-title h3 {
+  height: 45px;
+  border-bottom: 1px solid #ebeef3;
+}
+
+#main-newsstand-title ul {
+  display: inline-block; /*ul이 height 갖도록*/
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#main-newsstand-title li {
+  float: left;
+  width: calc(100% / 6);
+  height: 67px;
+  border-right: 1px solid #f1f3f6;
+  border-bottom: 1px solid #f1f3f6;
+  text-align: center;
+}
+
+#main-newsstand-title li img {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#main-weather {
+  display: inline-block;
+  width: 348px;
+  height: 150px;
+  border: 1px solid black;
+  margin-bottom: 8px;
+}
+
+#main-second-ad {
+  display: inline-block;
+  width: 348px;
+  height: 150px;
+  background: #555;
+  margin-bottom: 8px;
+}
+
+#main-category {
+  display: inline-block;
+  width: 740px;
+  height: 1539px;
+  border: 1px solid black;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  vertical-align: top;
+}
+
+#main-shopping {
+  display: inline-block;
+  width: 350px;
+  height: 1539px;
+  margin-bottom: 8px;
+}
+
+#main-shopping iframe {
+  width: 100%;
+  height: 100%;
+}
+
+#main-event {
+  display: inline-block;
+  width: 740px;
+  height: 130px;
+  border: 1px solid black;
+  margin-right: 8px;
+}
+
+#main-third-ad {
+  display: inline-block;
+  width: 348px;
+  height: 130px;
+  background: #555;
+  vertical-align: top;
 }
