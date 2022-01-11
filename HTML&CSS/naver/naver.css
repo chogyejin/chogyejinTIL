@@ -625,18 +625,73 @@ main {
   vertical-align: top;
 }
 
+#main-category-top {
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid #ebeef3;
+}
+
+#category-list {
+  width: 603px;
+}
+
+#category-list,
+#category-button-all,
+#category-button-prev,
+#category-button-next {
+  float: left;
+  height: 45px;
+}
+
+#category-button-all,
+#category-button-prev,
+#category-button-next {
+  display: inline-block;
+  width: 45px;
+  background: white;
+  border: none;
+  border-left: 1px solid #ebeef3;
+}
+
+#category-button-all {
+  /* image sprite 생략 */
+  border-right: 1px solid #ebeef3;
+}
+
+#category-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+#category-list li {
+  float: left;
+}
+
+#category-button-prev {
+  background-image: url(https://s.pstatic.net/static/www/img/uit/sp_main_6f9b98.png);
+  -webkit-background-size: 444px 439px;
+  background-size: 444px 439px;
+  background-repeat: no-repeat;
+  background-position: -168px -347px;
+}
+#category-button-next {
+  background-image: url(https://s.pstatic.net/static/www/img/uit/sp_main_6f9b98.png);
+  -webkit-background-size: 444px 439px;
+  background-size: 444px 439px;
+  background-repeat: no-repeat;
+  background-position: -83px -347px;
+}
+
 #main-shopping {
   display: inline-block;
   width: 350px;
   height: 1539px;
   margin-bottom: 8px;
 }
-
 #main-shopping iframe {
   width: 100%;
   height: 100%;
 }
-
 #main-event {
   display: inline-block;
   width: 740px;
@@ -644,7 +699,6 @@ main {
   border: 1px solid black;
   margin-right: 8px;
 }
-
 #main-third-ad {
   display: inline-block;
   width: 348px;
