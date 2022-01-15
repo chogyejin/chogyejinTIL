@@ -1,0 +1,122 @@
+<!-- 12장의 카드(빨강, 주황, 노랑, 초록, 하양, 분홍) 앞면(card-front) 보고 짝 맞추기 -->
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>카드 짝 맞추기</title>
+    <style>
+      .card {
+        display: inline-block;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        width: 70px;
+        height: 100px;
+        perspective: 140px;
+      }
+
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+      }
+
+      .card.flipped .card-inner {
+        transform: rotateY(180deg);
+      }
+
+      .card-front {
+        background: navy;
+      }
+
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+        backface-visibility: hidden;
+      }
+
+      .card-back {
+        transform: rotateY(180deg);
+      }
+
+      #wrapper {
+        width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper"></div>
+    <script>
+      const $wrapper = document.querySelector('#wrapper');
+
+      const total = 12;
+      const colors = ['red', 'orange', 'yellow', 'green', 'white', 'pink'];
+      let colorCopy = colors.concat(colors); // colors 배열 두 쌍
+      let shuffledArray = [];
+
+      //Fisher-Yates Shuffle
+      function shuffle() {
+        for (let i = 0; colorCopy.length > 0; i += 1) {
+          const randomIndex = Math.floor(Math.random() * colorCopy.length);
+          shuffledArray = shuffledArray.concat(
+            colorCopy.splice(randomIndex, 1), // colorCopy length 1 감소
+          );
+        }
+      }
+
+      function createCard(i) {
+        // 구조는 div.card > div.card-inner > (div.card-front + div.card-back)
+        const card = document.createElement('div');
+        card.className = 'card';
+        const cardInner = document.createElement('div');
+        cardInner.className = 'card-inner';
+        const cardFront = document.createElement('div');
+        cardFront.className = 'card-front';
+        const cardBack = document.createElement('div');
+        cardBack.className = 'card-back';
+
+        cardBack.style.backgroundColor = shuffledArray[i]; // i는 index
+
+        cardInner.appendChild(cardFront);
+        cardInner.appendChild(cardBack);
+        card.appendChild(cardInner);
+
+        return card;
+      }
+
+      function startGame() {
+        shuffle();
+        for (let i = 0; i < total; i += 1) {
+          const card = createCard(i);
+          $wrapper.appendChild(card);
+        }
+
+        document.querySelectorAll('.card').forEach((card, index) => {
+          setTimeout(() => {
+            card.classList.add('flipped');
+          }, 1000 + 100 * index); // 카드마다 0.1초씩 차이나게 뒷면으로 뒤집힘
+        });
+
+        setTimeout(() => {
+          // 5초 뒤 다시 앞면으로 뒤집기
+          document.querySelectorAll('.card').forEach((card) => {
+            card.classList.remove('flipped');
+          });
+        }, 5000);
+      }
+
+      startGame();
+    </script>
+  </body>
+</html>
+
+<!-- 
+concat() : 인자로 주어진 배열이나 값들을 기존 배열에 합쳐서 새 배열을 반환
+[1].concat(2, 3)이랑 [1].concat([2, 3])이랑 같음(배열 하나까지는 펴줌)
+ -->
