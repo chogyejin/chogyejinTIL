@@ -59,6 +59,8 @@
       const colors = ['red', 'orange', 'yellow', 'green', 'white', 'pink'];
       let colorCopy = colors.concat(colors); // colors 배열 두 쌍
       let shuffledArray = [];
+      let clickedCards = [];
+      let completedCards = [];
 
       //Fisher-Yates Shuffle
       function shuffle() {
@@ -90,25 +92,74 @@
         return card;
       }
 
+      function onClickCard() {
+        // card의 eventListner이고 함수 선언문(function func() {})이면 this는 card
+        this.classList.toggle('flipped');
+        clickedCards.push(this);
+
+        // 짝이 2장이 안되면 대기
+        if (clickedCards.length !== 2) {
+          return;
+        }
+
+        // 두 카드의 뒷면 비교해서 같다면
+        if (
+          clickedCards[0].querySelector('.card-back').style.backgroundColor ===
+          clickedCards[1].querySelector('.card-back').style.backgroundColor
+        ) {
+          completedCards.push(clickedCards[0]);
+          completedCards.push(clickedCards[1]);
+          clickedCards = []; // 짝 찾으면 clicked 배열 비워주기
+
+          // completedCards 꽉 차면 끝
+          if (completedCards.length !== total) {
+            return;
+          }
+          setTimeout(() => {
+            alert('끝!');
+            resetGame();
+          }, 500);
+          return;
+        }
+
+        // 뒷면 다르다면 다시 뒤집기
+        setTimeout(() => {
+          clickedCards[0].classList.remove('flipped');
+          clickedCards[1].classList.remove('flipped');
+          clickedCards = [];
+        }, 500);
+      }
+
       function startGame() {
         shuffle();
+
         for (let i = 0; i < total; i += 1) {
           const card = createCard(i);
+          card.addEventListener('click', onClickCard);
           $wrapper.appendChild(card);
         }
 
         document.querySelectorAll('.card').forEach((card, index) => {
           setTimeout(() => {
             card.classList.add('flipped');
-          }, 1000 + 100 * index); // 카드마다 0.1초씩 차이나게 뒷면으로 뒤집힘
+          }, 1000 + 100 * index); // 1초~2.2초동안 카드마다 0.1초씩 차이나게 뒷면으로 뒤집힘
         });
 
-        setTimeout(() => {
+        document.querySelectorAll('.card').forEach((card) => {
           // 5초 뒤 다시 앞면으로 뒤집기
-          document.querySelectorAll('.card').forEach((card) => {
+          setTimeout(() => {
             card.classList.remove('flipped');
-          });
-        }, 5000);
+          }, 5000);
+        });
+      }
+
+      function resetGame() {
+        $wrapper.innerHTML = '';
+        colorCopy = colors.concat(colors);
+        shuffledArray = [];
+        // clickeCards는 매번 비워짐
+        completedCards = [];
+        startGame();
       }
 
       startGame();
@@ -119,4 +170,13 @@
 <!-- 
 concat() : 인자로 주어진 배열이나 값들을 기존 배열에 합쳐서 새 배열을 반환
 [1].concat(2, 3)이랑 [1].concat([2, 3])이랑 같음(배열 하나까지는 펴줌)
+
+태그 찾기
+querySelector에는 선택자(selector)를 parameter로 받는데 태그 이름, 클래스명('.~~'), id('#~~')가 들어갈 수 있다.
+document.querySelector('head').querySelector('title') // head 태그 안의 title 태그 찾음
+document.querySelector('head title') // 위와 같은 기능 수행
+document.querySelector('head')도 하나의 태그기 때문에 변수에 저장하여 사용 가능
+
+원본이 바뀌는 메서드
+push, pop, shift, unshift, sort, splice 등 사용에 유의
  -->
