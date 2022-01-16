@@ -131,12 +131,14 @@
           }, 500);
           return;
         }
+        clickable = false; // clickedCards 배열 원소 3개 이상 안되게 클릭 막음
 
         // 뒷면 다르다면 다시 뒤집기
         setTimeout(() => {
           clickedCards[0].classList.remove("flipped");
           clickedCards[1].classList.remove("flipped");
           clickedCards = [];
+          clickable = true;
         }, 500);
       }
 
@@ -191,4 +193,31 @@ document.querySelector('head')도 하나의 태그기 때문에 변수에 저장
 
 원본이 바뀌는 메서드
 push, pop, shift, unshift, sort, splice 등 사용에 유의
+
+호출 스택 : 함수가 실행되는 공간, 소스 코드 실행 자체가 하나의 익명함수 실행이라고 본다.
+function a() {
+  b();
+}
+function b() {
+  console.trace();
+}
+a();
+
+실행 결과(아래가 먼저 쌓인 것, 위에서부터 나감)
+console.trace()
+b
+a
+(anonymous)
+
+백그라운드 : 타이머, 이벤트 리스너 등
+태스크 큐 : 백그라운드의 콜백 함수(몇 초 후, 클릭했을 때 등 일어나는 함수) 저장
+이벤트 루프 : 호출 스택이 비어있을 때(익명함수까지 끝나면) 태스크 큐에서 꺼내서 실행
+코드 상황
+1번, 2번, 3번, 4번 카드 빠르게 클릭(1, 2번 뒷면 다름), 태스크 큐 1, 2, 3, 4, 백그라운드 addEventListener(12)
+1번 카드는 clickedCards에 push되고(clickedCards = [1]) clickedCards.length 만나서 return, 태스크 큐 2, 3, 4
+2번 카드는 clickedCards에 push되고(clickedCards = [1, 2]) 뒷면 달라서 아래에 있는 setTimeout 백그라운드에 넣음, 태스크 큐 3, 4 
+3번 카드는 clickedCards에 push되고(clickedCards = [1, 2, 3])인데 clickedCards[0]과 [1]은 여전히 1번 2번 카드임, 태스크 큐 4
+4번 카드는 clickedCards에 push되고(clickedCards = [1, 2, 3, 4]), 태스크 큐 비워지고 3번 카드 클릭과 상황 같아짐
+태스크 큐에 있는 setTimeout(2번에 있던) 이제서야 실행, 1번 2번 카드는 flipped 클래스 remove하지만 clickedCards 배열이 비워지고 3번 4번 여전히 뒤집혀있음
+
  -->
