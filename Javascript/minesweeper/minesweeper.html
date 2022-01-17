@@ -1,0 +1,95 @@
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>지뢰찾기</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        border: 1px solid #bbb;
+        text-align: center;
+        line-height: 20px;
+        width: 20px;
+        height: 20px;
+        background: #888;
+      }
+      td.opened {
+        background: white;
+      }
+      td.flag {
+        background: red;
+      }
+      td.question {
+        background: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table">
+      <tbody></tbody>
+    </table>
+    <div id="result"></div>
+    <script>
+      const $tbody = document.querySelector("#table tbody");
+      const $resutl = document.querySelector("#result");
+
+      const row = 10;
+      const cell = 10;
+      const mine = 10;
+      const CODE = {
+        NORMAL: -1,
+        QUESTION: -2,
+        FLAG: -3,
+        QUESTION_MINE: -4,
+        FLAG_MINE: -5,
+        MINE: -6,
+        OPENED: 0,
+      };
+      let data;
+      // 데이터를 만들고 화면을 수정하자
+
+      function makeMine() {
+        const numbers = Array(row * cell)
+          .fill()
+          .map((number, index) => index); // callback { return } 생략
+        const shuffle = [];
+
+        while (numbers.length > row * cell - mine) {
+          // 랜덤으로 뽑은 1개 숫자 배열(splice)의 1번째 원소를 push
+          const chosenNumber = numbers.splice(
+            Math.floor(Math.random() * numbers.length), // 랜덤 index
+            1
+          )[0];
+          shuffle.push(chosenNumber);
+        }
+
+        // 모두 일반칸으로 초기화
+        const data = [];
+        for (let i = 0; i < row; i++) {
+          const rowData = []; // 행 배열
+          for (let j = 0; j < cell; j++) {
+            rowData.push(CODE.NORMAL);
+          }
+          data.push(rowData);
+        }
+
+        // shuffle 배열에 있는 칸에 지뢰 심기, 예시 들면서 생각하자 [76, 22, ...]
+        for (let k = 0; k < shuffle.length; k++) {
+          const line = Math.floor(shuffle[k] / row); // 0~9번째 줄, 10의 자리 숫자
+          const th = shuffle[k] % cell; // 1의 자리 숫자
+          data[line][th] = CODE.MINE;
+        }
+        return data;
+      }
+
+      function makeTable() {
+        data = makeMine();
+        console.log(data);
+      }
+      makeTable();
+    </script>
+  </body>
+</html>
