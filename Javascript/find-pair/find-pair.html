@@ -1,4 +1,5 @@
 <!-- 12장의 카드(빨강, 주황, 노랑, 초록, 하양, 분홍) 앞면(card-front) 보고 짝 맞추기 -->
+<!-- 카드 개수 입력 받기로 변경(최대 20장), 몇 초 걸렸는지 체크 -->
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -54,14 +55,32 @@
     <div id="wrapper"></div>
     <script>
       const $wrapper = document.querySelector("#wrapper");
+      let total;
+      do {
+        total = parseInt(prompt("몇 장의 카드로 할래? (최대 20장)"));
+        if (total % 2 === 1) alert("짝수로 입력하세요");
+      } while (total % 2 === 1);
 
-      const total = 12;
-      const colors = ["red", "orange", "yellow", "green", "white", "pink"];
-      let colorCopy = colors.concat(colors); // colors 배열 두 쌍
+      const colors = [
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "white",
+        "pink",
+        "black",
+        "purple",
+        "gray",
+        "skyblue",
+      ];
+      let subColors = colors.slice(0, total / 2);
+      let colorCopy = subColors.concat(subColors); // colors 배열 두 쌍
       let shuffledArray = [];
       let clickedCards = [];
       let completedCards = [];
       let clickable = false;
+      let startTime;
+      let endTime;
 
       //Fisher-Yates Shuffle
       function shuffle() {
@@ -129,6 +148,11 @@
             alert("끝!");
             resetGame();
           }, 500);
+          endTime = new Date();
+
+          const $timer = document.createElement("div");
+          $timer.textContent = `${(endTime - startTime) / 1000} 초`;
+          $wrapper.appendChild($timer);
           return;
         }
         clickable = false; // clickedCards 배열 원소 3개 이상 안되게 클릭 막음
@@ -163,13 +187,20 @@
           setTimeout(() => {
             card.classList.remove("flipped");
             clickable = true;
+            startTime = new Date();
           }, 5000);
         });
       }
 
       function resetGame() {
+        do {
+          total = parseInt(prompt("몇 장의 카드로 할래? (최대 20장)"));
+          if (total % 2 === 1) alert("짝수로 입력하세요");
+        } while (total % 2 === 1);
+        subColors = colors.slice(0, total / 2);
+        colorCopy = subColors.concat(subColors); // colors 배열 두 쌍
+        console.log(total, subColors, colorCopy);
         $wrapper.innerHTML = "";
-        colorCopy = colors.concat(colors);
         shuffledArray = [];
         // clickeCards는 매번 비워짐
         completedCards = [];
@@ -215,9 +246,32 @@ a
 코드 상황
 1번, 2번, 3번, 4번 카드 빠르게 클릭(1, 2번 뒷면 다름), 태스크 큐 1, 2, 3, 4, 백그라운드 addEventListener(12)
 1번 카드는 clickedCards에 push되고(clickedCards = [1]) clickedCards.length 만나서 return, 태스크 큐 2, 3, 4
-2번 카드는 clickedCards에 push되고(clickedCards = [1, 2]) 뒷면 달라서 아래에 있는 setTimeout 백그라운드에 넣음, 태스크 큐 3, 4 
-3번 카드는 clickedCards에 push되고(clickedCards = [1, 2, 3])인데 clickedCards[0]과 [1]은 여전히 1번 2번 카드임, 태스크 큐 4
+2번 카드는 clickedCards에 push되고(clickedCards = [1, 2]) 뒷면 달라서 아래에 있는 setTimeout 백그라운드에 넣음, 태스크 큐 3, 4
+         백그라운드에 넣는다는 것은 바로 호출 스택에 들어가는 것이 아니기 때문에 clickedCards = [] 코드가 이때 실행되지 못함 
+3번 카드는 clickedCards에 push되고(clickedCards = [1, 2, 3])인데 clickedCards[0]과 [1]은 여전히 1번 2번 카드임, 태스크 큐 4, length return
 4번 카드는 clickedCards에 push되고(clickedCards = [1, 2, 3, 4]), 태스크 큐 비워지고 3번 카드 클릭과 상황 같아짐
-태스크 큐에 있는 setTimeout(2번에 있던) 이제서야 실행, 1번 2번 카드는 flipped 클래스 remove하지만 clickedCards 배열이 비워지고 3번 4번 여전히 뒤집혀있음
+태스크 큐가 비워져있고 백그라운드에 있던 setTimeout의 콜백이 태스크 큐로 감
+태스크 큐에 있는 setTimeout 콜백 함수가 이제서야 실행, 1번 2번 카드는 flipped 클래스 remove하지만 clickedCards 배열이 비워지고 3번 4번 여전히 뒤집혀있음
+
+예시)
+function aaa() {
+  setTimeout(() => {
+    console.log('d');
+  }, 0);
+  console.log('c');
+}
+
+setTimeout(() => {
+  console.log('a');
+  aaa();
+}, 0);
+
+setTimeout(() => {
+  aaa();
+  console.log('b');
+}, 0);
+
+// 콘솔 a, c, c, b, d, d 출력
+
 
  -->
