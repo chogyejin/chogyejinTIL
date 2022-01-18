@@ -43,8 +43,8 @@
         NORMAL: -1,
         QUESTION: -2,
         FLAG: -3,
-        QUESTION_MINE: -4,
-        FLAG_MINE: -5,
+        QUESTION_MINE: -4, // 지뢰가 있는데 물음표인 칸
+        FLAG_MINE: -5, // 지뢰가 있는데 플래그인 칸
         MINE: -6,
         OPENED: 0,
       };
@@ -85,11 +85,46 @@
         return data;
       }
 
+      function onRightClick(event) {
+        event.preventDefault(); // 브라우저 우클릭 기본동작 제한
+        console.log(event);
+        console.log(event.target); // td
+        console.log(event.target.value); // undefined
+        console.log(event.target.textContent); // 공백이나 'X'
+        console.log(event.target.parentNode); // tr
+        console.log(event.target.parentNode.rowIndex); // 몇 번째 줄인지
+        console.log(event.target.cellIndex); // 몇 번째 칸인지
+
+        // 클릭 칸 데이터 찾기
+        const rowIndex = event.target.parentNode.rowIndex;
+        const cellIndex = event.target.cellIndex;
+        const cellData = data[rowIndex][cellIndex];
+      }
+
       function makeTable() {
         data = makeMine();
-        console.log(data);
+
+        data.forEach((row) => {
+          const $tr = document.createElement("tr");
+          row.forEach((cell) => {
+            const $td = document.createElement("td");
+            if (cell === CODE.MINE) {
+              // 개발자 편의를 위해 그려놓음
+              $td.textContent = "X";
+            }
+            $tr.appendChild($td);
+          });
+          $tbody.appendChild($tr);
+          $tbody.addEventListener("contextmenu", onRightClick); // 이벤트 버블링
+        });
       }
       makeTable();
     </script>
   </body>
 </html>
+
+<!-- 
+contextmenu 이벤트
+브라우저에서 마우스 우클릭 이벤트로 기본 동작이 있다(복사, 인쇄, 검사 등)
+여기선 우클릭으로 물음표나 깃발을 세울 것이기 때문에 preventDefault()로 기본 동작을 제한한다.
+ -->
