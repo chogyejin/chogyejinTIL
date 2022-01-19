@@ -99,6 +99,41 @@
         const rowIndex = event.target.parentNode.rowIndex;
         const cellIndex = event.target.cellIndex;
         const cellData = data[rowIndex][cellIndex];
+
+        // 일반 칸(-1) > 물음표(-2) > 깃발(-3) > 일반 칸(-1)
+        // 지뢰(-6) > 물음표 지뢰(-4) > 깃발 지뢰(-5) > 지뢰(-6)
+        if (cellData === CODE.NORMAL) {
+          data[rowIndex][cellIndex] = CODE.QUESTION;
+          event.target.className = "question";
+          event.target.textContent = "?";
+        } else if (cellData === CODE.QUESTION) {
+          data[rowIndex][cellIndex] = CODE.FLAG;
+          event.target.className = "flag";
+          event.target.textContent = "!";
+        } else if (cellData === CODE.FLAG) {
+          data[rowIndex][cellIndex] = CODE.NORMAL;
+          event.target.className = "";
+          event.target.textContent = "";
+        } else if (cellData === CODE.MINE) {
+          data[rowIndex][cellIndex] = CODE.QUESTION_MINE;
+          event.target.className = "question";
+          event.target.textContent = "?";
+        } else if (cellData === CODE.QUESTION_MINE) {
+          data[rowIndex][cellIndex] = CODE.FLAG_MINE;
+          event.target.className = "flag";
+          event.target.textContent = "!";
+        } else if (cellData === CODE.FLAG_MINE) {
+          data[rowIndex][cellIndex] = CODE.MINE;
+          event.target.className = "";
+          event.target.textContent = "X";
+        }
+      }
+
+      function onLeftClick(event) {
+        // event.target은 td 태그임
+        const rowIndex = event.target.parentNode.rowIndex;
+        const cellIndex = event.target.cellIndex;
+        const cellData = data[rowIndex][cellIndex];
       }
 
       function makeTable() {
@@ -116,6 +151,7 @@
           });
           $tbody.appendChild($tr);
           $tbody.addEventListener("contextmenu", onRightClick); // 이벤트 버블링
+          $tbody.addEventListener("click", onLeftClick);
         });
       }
       makeTable();
@@ -127,4 +163,7 @@
 contextmenu 이벤트
 브라우저에서 마우스 우클릭 이벤트로 기본 동작이 있다(복사, 인쇄, 검사 등)
 여기선 우클릭으로 물음표나 깃발을 세울 것이기 때문에 preventDefault()로 기본 동작을 제한한다.
+
+CODE 객체
+화면은 같지만 다른 데이터(지뢰 혹은 지뢰 없는 칸)를 가질 수 있음.
  -->
