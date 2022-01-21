@@ -28,17 +28,25 @@
     </style>
   </head>
   <body>
+    <form id="form">
+      <input type="text" id="row" placeholder="가로줄 입력" />
+      <input type="text" id="cell" placeholder="세로줄 입력" />
+      <input type="text" id="mine" placeholder="지뢰 개수 입력" />
+      <button>입력</button>
+    </form>
+    <div id="timer">0초</div>
     <table id="table">
       <tbody></tbody>
     </table>
     <div id="result"></div>
     <script>
+      const $form = document.querySelector("#form");
+      const $timer = document.querySelector("#timer");
       const $tbody = document.querySelector("#table tbody");
       const $resutl = document.querySelector("#result");
-
-      const row = 10;
-      const cell = 10;
-      const mine = 10;
+      let row;
+      let cell;
+      let mine;
       const CODE = {
         NORMAL: -1, // 안 열린 칸
         QUESTION: -2,
@@ -49,7 +57,28 @@
         OPENED: 0, // 지뢰 없는 칸, 0~8 주변 지뢰 개수
       };
       let data;
-      // 데이터를 만들고 화면을 수정하자
+      let openCount;
+      let startTime;
+      let intervalTime;
+      // 1초마다 타이머 1초씩 증가
+
+      function onSubmit(event) {
+        event.preventDefault();
+        // event.target은 form, property로 form 속 id 받아서 그 value
+        row = parseInt(event.target.row.value);
+        cell = parseInt(event.target.cell.value);
+        mine = parseInt(event.target.mine.value);
+        $tbody.innerHTML = "";
+        openCount = 0;
+        makeTable();
+        startTime = new Date();
+        intervalTime = setInterval(() => {
+          const time = Math.floor((new Date() - startTime) / 1000);
+          $timer.textContent = `${time} 초`;
+        }, 1000);
+      }
+
+      $form.addEventListener("submit", onSubmit);
 
       function makeMine() {
         const numbers = Array(row * cell)
@@ -87,13 +116,13 @@
 
       function onRightClick(event) {
         event.preventDefault(); // 브라우저 우클릭 기본동작 제한
-        console.log(event);
-        console.log(event.target); // td
-        console.log(event.target.value); // undefined
-        console.log(event.target.textContent); // 공백이나 'X'
-        console.log(event.target.parentNode); // tr
-        console.log(event.target.parentNode.rowIndex); // 몇 번째 줄인지
-        console.log(event.target.cellIndex); // 몇 번째 칸인지
+        // console.log(event);
+        // console.log(event.target); // td
+        // console.log(event.target.value); // undefined
+        // console.log(event.target.textContent); // 공백이나 'X'
+        // console.log(event.target.parentNode); // tr
+        // console.log(event.target.parentNode.rowIndex); // 몇 번째 줄인지
+        // console.log(event.target.cellIndex); // 몇 번째 칸인지
 
         // 클릭 칸 데이터 찾기
         const rowIndex = event.target.parentNode.rowIndex;
@@ -160,6 +189,18 @@
         target.className = "opened";
         target.textContent = count || "";
         data[rowIndex][cellIndex] = count;
+        openCount++;
+
+        if (openCount === row * cell - mine) {
+          const time = (new Date() - startTime) / 1000;
+          clearInterval(intervalTime);
+          $tbody.removeEventListener("click", onLeftClick);
+          $tbody.removeEventListener("contextmenu", onRightClick);
+          setTimeout(() => {
+            // 승리화면
+            alert(`게임 클리어, ${time} 초 걸렸습니다`);
+          }, 500);
+        }
         return count;
       }
 
@@ -180,7 +221,6 @@
             openAround(rowIndex + 1, cellIndex + 1);
           }
         }, 0);
-        console.log(data);
       }
 
       function onLeftClick(event) {
@@ -202,6 +242,7 @@
         else if (cellData === CODE.MINE) {
           event.target.className = "opened";
           event.target.textContent = "팡";
+          clearInterval(intervalTime); // 타이머 정지
           $tbody.removeEventListener("click", onLeftClick);
           $tbody.removeEventListener("contextmenu", onRightClick);
         }
@@ -215,7 +256,7 @@
           row.forEach((cell) => {
             const $td = document.createElement("td");
             if (cell === CODE.MINE) {
-              // 개발자 편의를 위해 그려놓음
+              // 개발자 편의를 위해 그려놓음, dev && ~~ 식으로 flag 변수 이용해서도 가능
               $td.textContent = "X";
             }
             $tr.appendChild($td);
@@ -225,7 +266,6 @@
           $tbody.addEventListener("click", onLeftClick);
         });
       }
-      makeTable();
     </script>
   </body>
 </html>
