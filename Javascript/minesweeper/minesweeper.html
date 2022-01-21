@@ -40,13 +40,13 @@
       const cell = 10;
       const mine = 10;
       const CODE = {
-        NORMAL: -1,
+        NORMAL: -1, // 안 열린 칸
         QUESTION: -2,
         FLAG: -3,
         QUESTION_MINE: -4, // 지뢰가 있는데 물음표인 칸
         FLAG_MINE: -5, // 지뢰가 있는데 플래그인 칸
         MINE: -6,
-        OPENED: 0,
+        OPENED: 0, // 지뢰 없는 칸, 0~8 주변 지뢰 개수
       };
       let data;
       // 데이터를 만들고 화면을 수정하자
@@ -100,7 +100,7 @@
         const cellIndex = event.target.cellIndex;
         const cellData = data[rowIndex][cellIndex];
 
-        // 일반 칸(-1) > 물음표(-2) > 깃발(-3) > 일반 칸(-1)
+        // 안 열린 칸(-1) > 물음표(-2) > 깃발(-3) > 안 열린 칸(-1)
         // 지뢰(-6) > 물음표 지뢰(-4) > 깃발 지뢰(-5) > 지뢰(-6)
         if (cellData === CODE.NORMAL) {
           data[rowIndex][cellIndex] = CODE.QUESTION;
@@ -146,6 +146,43 @@
         return sum;
       }
 
+      function open(rowIndex, cellIndex) {
+        if (data[rowIndex]?.[cellIndex] >= CODE.OPENED) {
+          //OPENED는 0~8이기 때문에 열었던 칸이면 바로 return
+          return;
+        }
+        const target = $tbody.children[rowIndex]?.children[cellIndex];
+        if (!target) {
+          return;
+        }
+
+        const count = countMine(rowIndex, cellIndex);
+        target.className = "opened";
+        target.textContent = count || "";
+        data[rowIndex][cellIndex] = count;
+        return count;
+      }
+
+      // 내 칸을 열고 주변 칸도 엶
+      function openAround(rowIndex, cellIndex) {
+        setTimeout(() => {
+          const count = open(rowIndex, cellIndex);
+          if (count === 0) {
+            // 내 칸이 지뢰 없는 칸이면
+            // 8방향 열기(재귀)
+            openAround(rowIndex - 1, cellIndex - 1);
+            openAround(rowIndex - 1, cellIndex);
+            openAround(rowIndex - 1, cellIndex + 1);
+            openAround(rowIndex, cellIndex - 1);
+            openAround(rowIndex, cellIndex + 1);
+            openAround(rowIndex + 1, cellIndex - 1);
+            openAround(rowIndex + 1, cellIndex);
+            openAround(rowIndex + 1, cellIndex + 1);
+          }
+        }, 0);
+        console.log(data);
+      }
+
       function onLeftClick(event) {
         // event.target은 td 태그임
         // 칸이 열리거나 지뢰거나 둘 중 하나
@@ -153,12 +190,13 @@
         const cellIndex = event.target.cellIndex;
         const cellData = data[rowIndex][cellIndex];
 
-        // 일반 칸이면 지뢰 세고
+        // 안 열린 칸이면 지뢰 세고
         if (cellData === CODE.NORMAL) {
-          const count = countMine(rowIndex, cellIndex);
-          event.target.className = "opened";
-          event.target.textContent = count || ""; // count false면(0도 포함) 빈 문자열
-          data[rowIndex][cellIndex] = count;
+          // const count = countMine(rowIndex, cellIndex);
+          // event.target.className = "opened";
+          // event.target.textContent = count || ""; // count false면(0도 포함) 빈 문자열
+          // data[rowIndex][cellIndex] = count;
+          openAround(rowIndex, cellIndex);
         }
         // 지뢰면 event remove까지
         else if (cellData === CODE.MINE) {
@@ -212,4 +250,13 @@ undefined의 property를 접근하려 하면 에러나오기 때문에 이를 �
 A && B : A true면 B 실행
 A || B : A false('', 0, false, NaN, null, undefined)면 B 실행
 A ?? B : A가 null이나 undefined이면 B 실행(||보다 범위 작아짐)
+
+children vs childNodes
+children : 자식 요소에 접근(비요소 노드 포함), HTMLCollections return
+childNodes : 자식 노드에 접근, NodeList return
+
+Maximum call stack size exceeded
+openAround()는 주변을 여는데 주변에서 원래 칸을 또 열려고 해서 무한루프에 빠짐
+호출 스택의 크기는 제한되어 있어서 일정 범위를 넘어가면 터진다.
+호출 스택에 있는 함수들을 백그라운드와 태스크 큐로 넘겨서 부하를 덜어준다(일반적으로 setTimeout(0) 이용).
  -->
