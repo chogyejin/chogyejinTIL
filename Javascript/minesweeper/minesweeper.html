@@ -61,6 +61,7 @@
       let startTime;
       let intervalTime;
       // 1초마다 타이머 1초씩 증가
+      let firstClick = false;
 
       function onSubmit(event) {
         event.preventDefault();
@@ -69,7 +70,9 @@
         cell = parseInt(event.target.cell.value);
         mine = parseInt(event.target.mine.value);
         $tbody.innerHTML = "";
+        firstClick = false;
         openCount = 0;
+        clearInterval(intervalTime); // 종료 후 alert 창에서 시간 계속 흐르는 거 clear
         makeTable();
         startTime = new Date();
         intervalTime = setInterval(() => {
@@ -107,7 +110,7 @@
 
         // shuffle 배열에 있는 칸에 지뢰 심기, 예시 들면서 생각하자 [76, 22, ...]
         for (let k = 0; k < shuffle.length; k++) {
-          const line = Math.floor(shuffle[k] / row); // 0~9번째 줄, 10의 자리 숫자
+          const line = Math.floor(shuffle[k] / cell); // 0~9번째 줄, 10의 자리 숫자
           const th = shuffle[k] % cell; // 1의 자리 숫자
           data[line][th] = CODE.MINE;
         }
@@ -223,12 +226,45 @@
         }, 0);
       }
 
+      function checkFirstMine(rI, cI) {
+        firstClick = true;
+
+        // 누른 칸이 마인이면
+        // 마인 아닌 칸 필터링
+        // 랜덤으로 하나 골라서 마인 옮긴다
+        if (data[rI][cI] === CODE.MINE) {
+          data[rI][cI] = CODE.NORMAL;
+          return;
+          const flatData = data.flat();
+          const findNoMine = flatData.map((ele, index) => {
+            if (ele === -1) {
+              return index;
+            }
+          });
+
+          const noMineIndexArr = findNoMine.filter((ele) => ele !== undefined);
+          const random = Math.floor(Math.random() * noMineIndexArr.length);
+          data[Math.floor(random / cell)][random % cell] = CODE.MINE;
+        }
+
+        firstClick = false;
+
+        rowIndex = Math.floor(random / cell);
+        cellIndex = random % cell;
+        return [rowIndex, cellIndex];
+      }
+
       function onLeftClick(event) {
         // event.target은 td 태그임
         // 칸이 열리거나 지뢰거나 둘 중 하나
-        const rowIndex = event.target.parentNode.rowIndex;
-        const cellIndex = event.target.cellIndex;
+        let rowIndex = event.target.parentNode.rowIndex;
+        let cellIndex = event.target.cellIndex;
         const cellData = data[rowIndex][cellIndex];
+
+        codes = checkFirstMine(rowIndex, cellIndex);
+        console.log(codes);
+        rowIndex = codes[0];
+        cellIndex = codes[1];
 
         // 안 열린 칸이면 지뢰 세고
         if (cellData === CODE.NORMAL) {
@@ -250,7 +286,6 @@
 
       function makeTable() {
         data = makeMine();
-
         data.forEach((row) => {
           const $tr = document.createElement("tr");
           row.forEach((cell) => {
@@ -299,4 +334,9 @@ Maximum call stack size exceeded
 openAround()는 주변을 여는데 주변에서 원래 칸을 또 열려고 해서 무한루프에 빠짐
 호출 스택의 크기는 제한되어 있어서 일정 범위를 넘어가면 터진다.
 호출 스택에 있는 함수들을 백그라운드와 태스크 큐로 넘겨서 부하를 덜어준다(일반적으로 setTimeout(0) 이용).
+
+첫 시도에 게임 안 끝내기
+첫 클릭으로 연 칸은 지뢰가 없도록 해야한다.
+방법 1 : 클릭한 후 나머지 칸에 지뢰 심는다.
+방법 2 : 심어놓고 지뢰있는 칸 누르면 다른 칸에 옮긴다.
  -->
