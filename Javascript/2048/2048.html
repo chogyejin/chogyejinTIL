@@ -95,15 +95,15 @@
       }
 
       function put2ToRandomCell() {
-        const emptyCells = []; // [[i1, j1], [i2, j2], [i3, j3]]
-        data.forEach(function (rowData, i) {
-          rowData.forEach(function (cellData, j) {
+        const emptyCells = []; //[행, 열] 저장
+        data.forEach((rowData, i) => {
+          rowData.forEach((cellData, j) => {
             if (!cellData) {
               emptyCells.push([i, j]);
             }
           });
         });
-        // randomCell === [i, j]
+        // randomCell === [i, j], [0]에는 행 [1]에는 열
         const randomCell =
           emptyCells[Math.floor(Math.random() * emptyCells.length)];
         data[randomCell[0]][randomCell[1]] = 2;
@@ -115,14 +115,54 @@
             const $target = $table.children[i].children[j];
             if (cellData > 0) {
               $target.textContent = cellData;
-              $target.className = "color-" + cellData;
+              $target.className = "color-" + cellData; // color-2, 4, ...
             } else {
+              // 데이터 아무것도 없을 때
               $target.textContent = "";
               $target.className = "";
             }
           });
         });
       }
+
+      function moveCells() {}
+      window.addEventListener("keyup", (event) => {
+        // 키를 눌렀다가 뗄 때
+        console.log(event);
+        if (event.key === "ArrowUp") {
+          moveCells("up");
+        } else if (event.key === "ArrowDown") {
+          moveCells("down");
+        } else if (event.key === "ArrowLeft") {
+          moveCells("left");
+        } else if (event.key === "ArrowRight") {
+          moveCells("right");
+        }
+      });
+
+      // 마우스를 누른 상태일 때의 좌표 기억
+      let startCoord;
+      window.addEventListener("mousedown", (event) => {
+        startCoord = [event.clientX, event.clientY];
+      });
+      // 마우스를 뗄 때와 처음 눌렀을 때의 차이 계산
+      window.addEventListener("mouseup", (event) => {
+        const endCoord = [event.clientX, event.clientY];
+        const diffX = endCoord[0] - startCoord[0];
+        const diffY = endCoord[1] - startCoord[1];
+        // x좌표 차이가 양수면 오른쪽, 음수면 왼쪽
+        // y좌표 차이가 양수면 아래쪽, 음수면 위쪽
+        // 가로(x좌표)의 차이가 세로(y좌표)의 차이보다 크면 좌위, 아니면 위아래
+        if (diffY < 0 && Math.abs(diffX) <= Math.abs(diffY)) {
+          moveCells("up");
+        } else if (diffY > 0 && Math.abs(diffX) <= Math.abs(diffY)) {
+          moveCells("down");
+        } else if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY)) {
+          moveCells("left");
+        } else if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY)) {
+          moveCells("right");
+        }
+      });
 
       startGame();
     </script>
@@ -133,4 +173,11 @@
 document.createDocumentFragment()
 메인 DOM 트리의 일부가 되지 않는다.
 빈번하게 화면이 바뀔 때 화면에 바로 그리지 않고 가상 태그를 만들어 메모리에 저장, 성능 좋아짐 
+
+함수의 재사용성을 높이기 위해선 전역의 데이터와의 의존성을 낮춰야한다.
+
+마우스 이벤트
+좌표를 얻을 때 clientX, offsetX, pageX, screenX, movementX 등이 있다.
+clientX, Y는 뷰포트의 왼쪽 가장자리를 시작으로 오른쪽 아래 대각선으로 커진다.
+키보드는 어떤 키를 누르고 눌렀다 뗐다가 확실하지만 마우스는 기준점이 필요하다.
  -->
