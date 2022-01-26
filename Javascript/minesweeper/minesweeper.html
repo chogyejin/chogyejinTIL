@@ -61,7 +61,7 @@
       let startTime;
       let intervalTime;
       // 1초마다 타이머 1초씩 증가
-      let firstClick = false;
+      let firstClick;
 
       function onSubmit(event) {
         event.preventDefault();
@@ -70,7 +70,7 @@
         cell = parseInt(event.target.cell.value);
         mine = parseInt(event.target.mine.value);
         $tbody.innerHTML = "";
-        firstClick = false;
+        firstClick = true;
         openCount = 0;
         clearInterval(intervalTime); // 종료 후 alert 창에서 시간 계속 흐르는 거 clear
         makeTable();
@@ -227,14 +227,16 @@
       }
 
       function checkFirstMine(rI, cI) {
-        firstClick = true;
+        if (data[rI][cI] === CODE.NORMAL) {
+          return;
+        }
 
+        let randomIndex;
         // 누른 칸이 마인이면
         // 마인 아닌 칸 필터링
         // 랜덤으로 하나 골라서 마인 옮긴다
         if (data[rI][cI] === CODE.MINE) {
-          data[rI][cI] = CODE.NORMAL;
-          return;
+          console.log("첫 클릭에 지뢰 클릭");
           const flatData = data.flat();
           const findNoMine = flatData.map((ele, index) => {
             if (ele === -1) {
@@ -243,28 +245,26 @@
           });
 
           const noMineIndexArr = findNoMine.filter((ele) => ele !== undefined);
-          const random = Math.floor(Math.random() * noMineIndexArr.length);
-          data[Math.floor(random / cell)][random % cell] = CODE.MINE;
+          randomIndex = Math.floor(Math.random() * noMineIndexArr.length);
+          const element = noMineIndexArr[randomIndex];
+
+          // 첫 클릭 칸과 랜덤으로 뽑은 칸 swap
+          data[Math.floor(element / cell)][element % cell] = CODE.MINE;
+          data[rI][cI] = CODE.NORMAL;
         }
-
-        firstClick = false;
-
-        rowIndex = Math.floor(random / cell);
-        cellIndex = random % cell;
-        return [rowIndex, cellIndex];
       }
 
       function onLeftClick(event) {
         // event.target은 td 태그임
         // 칸이 열리거나 지뢰거나 둘 중 하나
-        let rowIndex = event.target.parentNode.rowIndex;
-        let cellIndex = event.target.cellIndex;
-        const cellData = data[rowIndex][cellIndex];
+        const rowIndex = event.target.parentNode.rowIndex;
+        const cellIndex = event.target.cellIndex;
 
-        codes = checkFirstMine(rowIndex, cellIndex);
-        console.log(codes);
-        rowIndex = codes[0];
-        cellIndex = codes[1];
+        if (firstClick) {
+          firstClick = false;
+          checkFirstMine(rowIndex, cellIndex);
+        }
+        let cellData = data[rowIndex][cellIndex];
 
         // 안 열린 칸이면 지뢰 세고
         if (cellData === CODE.NORMAL) {
