@@ -147,6 +147,9 @@
                   const prevData = currentRow[currentRow.length - 1];
                   if (prevData === cellData) {
                     // 이전 값과 지금 값이 같으면
+                    const score = parseInt($score.textContent);
+                    $score.textContent =
+                      score + currentRow[currentRow.length - 1] * 2;
                     currentRow[currentRow.length - 1] *= -2; // 한 번에 합쳐지기 방지
                   } else {
                     newData[i].push(cellData);
@@ -170,6 +173,9 @@
                   const currentRow = newData[i];
                   const prevData = currentRow[currentRow.length - 1];
                   if (prevData === rowData[3 - j]) {
+                    const score = parseInt($score.textContent);
+                    $score.textContent =
+                      score + currentRow[currentRow.length - 1] * 2;
                     currentRow[currentRow.length - 1] *= -2;
                   } else {
                     newData[i].push(rowData[3 - j]);
@@ -193,6 +199,9 @@
                   const currentRow = newData[j];
                   const prevData = currentRow[currentRow.length - 1];
                   if (prevData === cellData) {
+                    const score = parseInt($score.textContent);
+                    $score.textContent =
+                      score + currentRow[currentRow.length - 1] * 2;
                     currentRow[currentRow.length - 1] *= -2;
                   } else {
                     newData[j].push(cellData);
@@ -216,6 +225,9 @@
                   const currentRow = newData[j];
                   const prevData = currentRow[currentRow.length - 1];
                   if (prevData === data[3 - i][j]) {
+                    const score = parseInt($score.textContent);
+                    $score.textContent =
+                      score + currentRow[currentRow.length - 1] * 2;
                     currentRow[currentRow.length - 1] *= -2;
                   } else {
                     newData[j].push(data[3 - i][j]);
@@ -288,6 +300,10 @@ document.createDocumentFragment()
 마우스 이벤트
 좌표를 얻을 때 clientX, offsetX, pageX, screenX, movementX 등이 있다.
 clientX, Y는 뷰포트의 왼쪽 가장자리를 시작으로 오른쪽 아래 대각선으로 커진다.
+pageX, Y는 스크롤한 픽셀도 더한 왼쪽 가장자리
+offsetX, Y는 연결된 이벤트 기준 왼쪽 가장자리
+screenX, Y는 모니터 기준
+movementX, Y는 현재의 mousemove 이벤트에서 지난 mousemove 이벤트 값의 차이
 키보드는 어떤 키를 누르고 눌렀다 뗐다가 확실하지만 마우스는 기준점이 필요하다.
 
 switch-case문 중괄호
