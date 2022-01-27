@@ -125,7 +125,116 @@
         });
       }
 
-      function moveCells() {}
+      // dummy 데이터
+      // data = [
+      //   [0, 2, 4, 2],
+      //   [0, 0, 8, 0],
+      //   [2, 2, 4, 8],
+      //   [0, 16, 0, 4],
+      // ];
+
+      // 한 쪽 방향으로 모두 몰고 해당 칸과 다음 칸 같으면 합치는데
+      // 2, 2, 4, 8과 같은 경우 한 번에 16으로 합쳐질 수 있어서
+      // 2대신 -2를 곱하고 후에 절대값으로 바꿔줌
+      function moveCells(direction) {
+        switch (direction) {
+          case "left": {
+            const newData = [[], [], [], []];
+            data.forEach((rowData, i) => {
+              rowData.forEach((cellData, j) => {
+                if (cellData) {
+                  const currentRow = newData[i];
+                  const prevData = currentRow[currentRow.length - 1];
+                  if (prevData === cellData) {
+                    // 이전 값과 지금 값이 같으면
+                    currentRow[currentRow.length - 1] *= -2; // 한 번에 합쳐지기 방지
+                  } else {
+                    newData[i].push(cellData);
+                  }
+                }
+              });
+            });
+            console.log(newData);
+            [1, 2, 3, 4].forEach((rowData, i) => {
+              [1, 2, 3, 4].forEach((cellData, j) => {
+                data[i][j] = Math.abs(newData[i][j]) || 0; // 마이너스 곱했던 거 되돌리기
+              });
+            });
+            break;
+          }
+          case "right": {
+            const newData = [[], [], [], []];
+            data.forEach((rowData, i) => {
+              rowData.forEach((cellData, j) => {
+                if (rowData[3 - j]) {
+                  const currentRow = newData[i];
+                  const prevData = currentRow[currentRow.length - 1];
+                  if (prevData === rowData[3 - j]) {
+                    currentRow[currentRow.length - 1] *= -2;
+                  } else {
+                    newData[i].push(rowData[3 - j]);
+                  }
+                }
+              });
+            });
+            console.log(newData);
+            [1, 2, 3, 4].forEach((rowData, i) => {
+              [1, 2, 3, 4].forEach((cellData, j) => {
+                data[i][3 - j] = Math.abs(newData[i][j]) || 0;
+              });
+            });
+            break;
+          }
+          case "up": {
+            const newData = [[], [], [], []];
+            data.forEach((rowData, i) => {
+              rowData.forEach((cellData, j) => {
+                if (cellData) {
+                  const currentRow = newData[j];
+                  const prevData = currentRow[currentRow.length - 1];
+                  if (prevData === cellData) {
+                    currentRow[currentRow.length - 1] *= -2;
+                  } else {
+                    newData[j].push(cellData);
+                  }
+                }
+              });
+            });
+            console.log(newData);
+            [1, 2, 3, 4].forEach((cellData, i) => {
+              [1, 2, 3, 4].forEach((rowData, j) => {
+                data[j][i] = Math.abs(newData[i][j]) || 0;
+              });
+            });
+            break;
+          }
+          case "down": {
+            const newData = [[], [], [], []];
+            data.forEach((rowData, i) => {
+              rowData.forEach((cellData, j) => {
+                if (data[3 - i][j]) {
+                  const currentRow = newData[j];
+                  const prevData = currentRow[currentRow.length - 1];
+                  if (prevData === data[3 - i][j]) {
+                    currentRow[currentRow.length - 1] *= -2;
+                  } else {
+                    newData[j].push(data[3 - i][j]);
+                  }
+                }
+              });
+            });
+            console.log(newData);
+            [1, 2, 3, 4].forEach((cellData, i) => {
+              [1, 2, 3, 4].forEach((rowData, j) => {
+                data[3 - j][i] = Math.abs(newData[i][j]) || 0;
+              });
+            });
+            break;
+          }
+        }
+        put2ToRandomCell();
+        draw();
+      }
       window.addEventListener("keyup", (event) => {
         // 키를 눌렀다가 뗄 때
         console.log(event);
@@ -159,7 +268,7 @@
           moveCells("down");
         } else if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY)) {
           moveCells("left");
-        } else if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY)) {
+        } else if (diffX > 0 && Math.abs(diffX) > Math.abs(diffY)) {
           moveCells("right");
         }
       });
@@ -180,4 +289,7 @@ document.createDocumentFragment()
 좌표를 얻을 때 clientX, offsetX, pageX, screenX, movementX 등이 있다.
 clientX, Y는 뷰포트의 왼쪽 가장자리를 시작으로 오른쪽 아래 대각선으로 커진다.
 키보드는 어떤 키를 누르고 눌렀다 뗐다가 확실하지만 마우스는 기준점이 필요하다.
+
+switch-case문 중괄호
+case ' ': { } 를 이용하는 경우는 중괄호 안에서 변수(const newData)를 선언해서 사용할 때 블록 스코프에 따르게 활용
  -->
