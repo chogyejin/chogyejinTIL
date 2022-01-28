@@ -68,11 +68,14 @@
   </head>
   <body>
     <table id="table"></table>
-    <div id="score"></div>
+    <div id="score">0</div>
+    <button id="undo">되돌리기</button>
     <script>
       const $table = document.querySelector("#table");
       const $score = document.getElementById("score");
+      const $undo = document.querySelector("#undo");
       let data = [];
+      const historyData = [];
 
       function startGame() {
         // table 안에 fragment 안에 tr, 안에 td
@@ -137,6 +140,10 @@
       // 2, 2, 4, 8과 같은 경우 한 번에 16으로 합쳐질 수 있어서
       // 2대신 -2를 곱하고 후에 절대값으로 바꿔줌
       function moveCells(direction) {
+        historyData.push({
+          table: JSON.parse(JSON.stringify(data)),
+          score: $score.textContent,
+        });
         switch (direction) {
           case "left": {
             const newData = [[], [], [], []];
@@ -285,6 +292,18 @@
         }
       });
 
+      $undo.addEventListener("click", (event) => {
+        console.log("되돌리기 클릭");
+        const prevData = historyData.pop();
+        if (!prevData) {
+          // history에서 꺼낼 거 없으면
+          return;
+        }
+        $score.textContent = prevData.score;
+        data = prevData.table;
+        draw();
+      });
+
       startGame();
     </script>
   </body>
@@ -308,4 +327,6 @@ movementX, Y는 현재의 mousemove 이벤트에서 지난 mousemove 이벤트 �
 
 switch-case문 중괄호
 case ' ': { } 를 이용하는 경우는 중괄호 안에서 변수(const newData)를 선언해서 사용할 때 블록 스코프에 따르게 활용
+
+되돌리기는 버튼 eventListener에 pop, moveCells() 함수에서 push
  -->
