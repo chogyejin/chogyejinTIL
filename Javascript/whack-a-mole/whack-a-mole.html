@@ -19,7 +19,7 @@
         height: 200px;
         bottom: 0;
         position: absolute;
-        transition: bottom 1s;
+        transition: bottom 1s; /* bottom 변화가 1초에 걸쳐서 일어나게 */
       }
       .gopher {
         background: url("./src/gopher.png") center center no-repeat;
@@ -132,10 +132,6 @@
       const $start = document.querySelector("#start");
       const $game = document.querySelector("#game");
       const $$cells = document.querySelectorAll(".cell"); // NodeList, index로 접근
-      console.log($$cells);
-      console.log($$cells[0]);
-      console.log($$cells[1]);
-      console.log($$cells[2]);
       const holes = [0, 0, 0, 0, 0, 0, 0, 0, 0];
       let started = false;
       let score = 0;
@@ -144,20 +140,70 @@
         if (started) return;
         started = true;
         console.log("시작");
-        tick(); // 첫 클릭시 한 번 튀어오르고
-        const tickId = setInterval(tick, 1000); // 1초마다 튀어오르게, css에서 transition을 1s로 해놔서 1초마다 내려감
+        const tickId = setInterval(tick, 1000); // 1초마다 튀어오르게
+        tick(); // 첫 클릭시 한 번 튀어오르기
       });
 
+      // 두더지 등장 30%, 폭탄은 20% 확률
+      let gopherPercent = 0.3;
+      let bombPercent = 0.5; // 0.3 + 0.2 (누적)
       function tick() {
         holes.forEach((hole, index) => {
-          const $gopher = $$cells[index].querySelector(".gopher");
-          holes[index] = setTimeout(() => {
-            $gopher.classList.add("hidden");
-            holes[index] = 0;
-          }, 1000);
-          $gopher.classList.remove("hidden");
+          if (hole) return;
+
+          const randomValue = Math.random();
+          if (randomValue < gopherPercent) {
+            const $gopher = $$cells[index].querySelector(".gopher");
+            // 1초 후에 숨기기
+            holes[index] = setTimeout(() => {
+              // console.log("add");
+              $gopher.classList.add("hidden");
+              holes[index] = 0;
+            }, 1000);
+            // console.log("remove");
+            $gopher.classList.remove("hidden");
+          } else if (randomValue < bombPercent) {
+            const $bomb = $$cells[index].querySelector(".bomb");
+            // 1초 후에 숨기기
+            holes[index] = setTimeout(() => {
+              $bomb.classList.add("hidden");
+              holes[index] = 0;
+            }, 1000);
+            $bomb.classList.remove("hidden");
+          }
         });
       }
+      $$cells.forEach(($cell, index) => {
+        $cell.querySelector(".gopher").addEventListener("click", (event) => {
+          console.log(event.target); // event.target은 gopher div
+          event.target.classList.add("dead"); // 우는 표정 두더지
+          event.target.classList.add("hidden"); // 숨기기
+          clearTimeout(holes[index]); // 기존의 1초 뒤에 내려가는 타이머 제거
+          setTimeout(() => {
+            // 우는 두더지가 올라오지 않게 dead 제거
+            holes[index] = 0;
+            event.target.classList.remove("dead");
+          }, 1000);
+        });
+        $cell.querySelector(".bomb").addEventListener("click", (event) => {
+          event.target.classList.add("boom");
+          event.target.classList.add("hidden");
+          clearTimeout(holes[index]);
+          setTimeout(() => {
+            holes[index] = 0;
+            event.target.classList.remove("boom");
+          }, 1000);
+        });
+      });
     </script>
   </body>
 </html>
+
+<!-- 
+tick()
+forEach의 hole과 holes[index]는 같은 값을 가지지만 hole도 원시값이어서 setTimeout의 id인 원시값을 참조시키게 하려면 holes[index]에 넣어줘야함
+
+계속 두더지에 hidden 클래스가 붙어있어서 나오지 않는 현상
+setInterval(tick, 1000)과 setTimeout(add, 1000)이 remove+add가 계속 일어나서 hidden이 remove되지 않음
+해결 : hole이 값을 가지고 있으면(위에 뭐가 올라와있으면) return을 시켜서 setTimeout이 2초에 한 번 실행되게 함
+ -->
