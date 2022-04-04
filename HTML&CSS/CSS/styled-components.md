@@ -142,9 +142,9 @@
     type: "submit", // 직접 전달
   })``;
 
-  export const SubmitButton = styled(StyledButton).attrs((props) => ({
-    type: props.type, // props로 전달
-  }))``;
+  export const SubmitButton = styled(StyledButton).attrs((props) => {
+    return { type: props.type };
+  })``;
   ```
 
 - Animations
@@ -248,3 +248,5 @@
     );
   }
   ```
+
+  - 버튼 실습 [styled-components - 벨로퍼트](https://react.vlpt.us/styling/03-styled-components.html)
