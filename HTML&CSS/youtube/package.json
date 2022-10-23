@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "postcss": "^8.4.13",
+    "prettier-plugin-css-order": "^1.2.0"
+  }
+}
