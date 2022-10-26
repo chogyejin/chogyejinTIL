@@ -1,0 +1,93 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 3px #000; /* 영역 구분 */
+  z-index: 20;
+}
+
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 16px;
+}
+
+.header__start {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+.header__hamburger {
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+}
+.header__title {
+  font-size: 1.2rem;
+  margin-left: 6px;
+  position: relative;
+  top: 2px;
+}
+
+.header__center {
+  width: 50%;
+}
+.header__form {
+  display: flex;
+  max-width: 100%;
+}
+.header__input--text {
+  width: calc(100% - 60px); /* 100%에서 버튼 width 빼기 */
+  height: 40px;
+  padding: 0 6px;
+  border: 1px solid #8f8f8f;
+  border-right: none;
+  border-radius: 8px 0 0 8px; /* input의 왼쪽 위, 아래만 radius */
+}
+.header__input--button {
+  width: 60px;
+  height: 40px;
+  border: 1px solid #8f8f8f;
+  border-left: none;
+  border-radius: 0 8px 8px 0px; /* input의 왼쪽 위, 아래만 radius */
+}
+
+.header__end {
+  display: flex;
+}
+.header__search {
+  display: none; /* 평소엔 안 보이다가 화면 작아지면 block */
+  margin-right: 8px;
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+}
+.header__profile {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #eaeaea;
+  border-radius: 50%;
+  background-image: url(../images/img2.jpeg);
+  background-size: 40px 40px; /* 이미지 크기 조정 */
+}
+
+@media screen and (max-width: 800px) {
+  /* 800px보다 width가 작으면 */
+  .header__title {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  /* 400px보다 width가 작으면 */
+  .header__center {
+    display: none;
+  }
+  .header__search {
+    display: block;
+  }
+}

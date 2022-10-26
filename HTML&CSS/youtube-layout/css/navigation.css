@@ -1,0 +1,50 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10; /* header보다 낮게 */
+}
+
+.nav__wrapper {
+  min-width: 200px;
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  padding-top: 80px; /* header에 가리지 않게 */
+}
+
+.nav__wrapper li {
+  display: flex;
+  padding: 10px 16px;
+}
+.nav__wrapper li:hover {
+  background-color: #eaeaea;
+}
+
+.nav__icon {
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+}
+.nav__menu {
+  margin-left: 8px;
+  font-size: 1.2rem;
+  border: none;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 800px) {
+  .nav__menu {
+    display: none;
+  }
+  /* icon 만큼만 남기고 menu가 차지하는 공간 없애기 */
+  /* width로 관리하면 wrapper가 모두 안 보임 */
+  .nav__wrapper {
+    min-width: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .nav__wrapper {
+    display: none;
+  }
+}
