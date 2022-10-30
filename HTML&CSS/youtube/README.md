@@ -12,15 +12,9 @@
 
 - 내용
   - [유튜브](https://www.youtube.com) 메인 페이지(라이트모드) 레이아웃 클론 코딩
-- 프로젝트 루트 디렉토리에서 `npx serve -s`로 실행
+- 프로젝트 루트 디렉토리에서 `npx serve -s`로 실행 혹은 VSCode Live server로 index.html 실행(cmd + L)
 
 ### 기본 요구사항
-
-- [x] SCSS로 스타일을 작성하세요.
-- [x] 작성된 SCSS를 CSS로 컴파일하세요.
-- [x] 제출 프로젝트에 확인 가능한 HTML, CSS, SCSS 파일이 모두 포함돼야 합니다.
-- [x] 브라우저에서 정상적으로 출력돼야 합니다.
-- [ ] `@media`를 활용해 반응형 레이아웃으로 구현해야 합니다.
 
 ### 선택 요구사항
 
@@ -50,3 +44,4 @@
 - icon 출처 : [icon8](https://icons8.kr/icons/set/%08play-button)
 
 - css 순서 정렬 플러그인 : `npm install postcss prettier-plugin-css-order --save-dev`, [CSS Order Prettier Plugin](https://github.com/Siilwyn/prettier-plugin-css-order)
+- BEM 방법론: [개념](https://nykim.work/15), [예제](https://github.com/uyeong/bem-style-mdn)

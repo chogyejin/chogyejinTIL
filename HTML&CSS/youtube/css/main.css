@@ -7,10 +7,10 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 html {
-  line-height: 1.15;
-  /* 1 */
   -webkit-text-size-adjust: 100%;
   /* 2 */
+  line-height: 1.15;
+  /* 1 */
 }
 
 /* Sections
@@ -34,9 +34,13 @@ main {
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
  */
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
 }
 
 /* Grouping content
@@ -59,10 +63,10 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
-  font-family: monospace, monospace;
-  /* 1 */
   font-size: 1em;
   /* 2 */
+  font-family: monospace, monospace;
+  /* 1 */
 }
 
 /* Text-level semantics
@@ -102,10 +106,10 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
-  /* 1 */
   font-size: 1em;
   /* 2 */
+  font-family: monospace, monospace;
+  /* 1 */
 }
 
 /**
@@ -121,10 +125,10 @@ small {
  */
 sub,
 sup {
-  font-size: 75%;
-  line-height: 0;
   position: relative;
   vertical-align: baseline;
+  font-size: 75%;
+  line-height: 0;
 }
 
 sub {
@@ -155,14 +159,14 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit;
-  /* 1 */
+  margin: 0;
+  /* 2 */
   font-size: 100%;
   /* 1 */
   line-height: 1.15;
   /* 1 */
-  margin: 0;
-  /* 2 */
+  font-family: inherit;
+  /* 1 */
 }
 
 /**
@@ -230,16 +234,16 @@ fieldset {
  *    `fieldset` elements in all browsers.
  */
 legend {
-  box-sizing: border-box;
-  /* 1 */
-  color: inherit;
-  /* 2 */
   display: table;
   /* 1 */
-  max-width: 100%;
+  box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 3 */
+  max-width: 100%;
+  /* 1 */
+  color: inherit;
+  /* 2 */
   white-space: normal;
   /* 1 */
 }
@@ -339,35 +343,50 @@ template {
   display: none;
 }
 
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #ffffff;
 }
 
 #header-container {
   display: flex;
-  position: sticky;
-  /* static + fixed */
+  position: fixed;
   top: 0;
-  /* 상단에 붙이기 */
   justify-content: space-between;
   align-items: center;
   z-index: 1;
   background-color: #ffffff;
   padding: 0 16px;
+  width: 100%;
   height: 56px;
 }
 #header-container #start,
 #header-container #center,
 #header-container #end {
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
+  width: 225px;
+}
+#header-container #start .end-btns,
+#header-container #center .end-btns,
+#header-container #end .end-btns {
+  border: 1px solid black;
 }
 #header-container #center {
   width: 728px;
-}
-#header-container #end {
-  justify-content: space-evenly;
-  width: 225px;
 }
 #header-container #side-btn {
   margin: 0 8px;
@@ -392,7 +411,7 @@ body {
 #header-container .search {
   display: flex;
   margin: 0 auto;
-  width: 634px;
+  width: 100%;
   height: 40px;
   color: #ffffff;
 }
@@ -483,14 +502,15 @@ body {
 }
 
 #aside-and-main {
-  display: flex;
   box-sizing: border-box;
 }
 #aside-and-main aside {
+  position: fixed;
+  top: 0;
   box-sizing: border-box;
   background-color: #ffffff;
   padding: 12px 0 12px 24px;
-  width: 240px;
+  min-width: 240px;
   height: 100%;
   font-size: 13px;
 }
@@ -517,27 +537,32 @@ body {
 }
 @media (max-width: 1200px) {
   #aside-and-main aside {
+    min-width: 0;
+  }
+}
+@media (max-width: 768px) {
+  #aside-and-main aside {
     display: none;
   }
 }
-#aside-and-main main {
-  background-color: #f9f9f9;
-  width: 1184px;
+#aside-and-main .main {
   height: 100%;
 }
-#aside-and-main main #main-navigator {
+#aside-and-main .main__navigator {
   display: flex;
-  position: sticky;
+  position: fixed;
   top: 56px;
   align-items: center;
   z-index: 1;
   box-sizing: border-box;
+  margin-left: 240px;
   border-top: 1px solid #e4e4e4;
   border-bottom: 1px solid #e4e4e4;
   background-color: #ffffff;
+  width: 100%;
   height: 56px;
 }
-#aside-and-main main #main-navigator .category-btn {
+#aside-and-main .main__navigator .category-btn {
   display: flex;
   align-items: center;
   transition: 0.2s;
@@ -553,64 +578,122 @@ body {
   white-space: nowrap;
   /* 줄 넘겨서 height 안 바뀌게 */
 }
-#aside-and-main main #main-navigator .category-btn:hover {
+#aside-and-main .main__navigator .category-btn:hover {
   background-color: #e0e0e0;
 }
-#aside-and-main main #main-navigator .category-btn:nth-child(1) {
+#aside-and-main .main__navigator .category-btn:nth-child(1) {
   margin-left: 24px;
 }
-#aside-and-main main #main-navigator .category-btn.current {
+#aside-and-main .main__navigator .category-btn.current {
   background-color: #030303;
   color: #ffffff;
 }
-#aside-and-main main #main-contents {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 262px));
-  margin: 20px 16px;
-  width: 100%;
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: #0f0f0f;
 }
-#aside-and-main main #main-contents .content-block {
-  cursor: pointer;
-  margin: 0 8px 40px;
+.nav__wrapper {
+  margin-top: 56px;
+  padding: 12px;
+  min-width: 216px;
 }
-#aside-and-main main #main-contents .content-block .thumbnail-wrapper {
-  position: relative;
+.nav__main-menu {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-#aside-and-main main #main-contents .content-block .thumbnail-wrapper .thumbnail {
-  width: 100%;
+.nav__main-menu li, .nav__user-menu li, .nav__subscribe li {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 40px;
 }
-#aside-and-main main #main-contents .content-block .thumbnail-wrapper span {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 4px;
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 3px 4px;
-  color: #ffffff;
-  font-size: 12px;
+.nav__main-menu li:hover, .nav__user-menu li:hover, .nav__subscribe li:hover {
+  border-radius: 12px;
+  background-color: #f2f2f2;
 }
-#aside-and-main main #main-contents .content-block .info {
+.nav__icon {
+  margin-right: 24px;
+  width: 24px;
+  height: 24px;
+}
+.nav__text {
+  font-size: 14px;
+}
+@media screen and (max-width: 1200px) {
+  .nav__wrapper {
+    min-width: 0;
+  }
+  .nav__text {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .nav__wrapper {
+    display: none;
+  }
+}
+
+.contents__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 112px 0 0 228px;
+  padding: 20px 10px;
+}
+.contents__item {
+  margin-bottom: 40px;
+  padding: 0 8px;
+  width: 25%;
+}
+.contents__thumbnail {
+  margin-bottom: 12px;
+  border-radius: 12px;
+  max-width: 100%;
+}
+.contents__info {
   display: flex;
 }
-#aside-and-main main #main-contents .content-block .info img {
-  margin: 12px 12px 0 0;
-  border-radius: 20px;
+.contents__avatar {
+  margin-right: 12px;
+  border-radius: 50%;
   width: 36px;
   height: 36px;
 }
-#aside-and-main main #main-contents .content-block .info .words {
-  margin-top: 12px;
-  color: #030303;
-}
-#aside-and-main main #main-contents .content-block .info .words .title {
-  margin-bottom: 6px;
-  font-weight: 500;
+.contents__meta--title {
+  color: #000;
   font-size: 14px;
 }
-#aside-and-main main #main-contents .content-block .info .words .name,
-#aside-and-main main #main-contents .content-block .info .words .meta {
-  color: #606060;
+.contents__meta--owner {
+  color: #aaa;
   font-size: 12px;
+}
+.contents__meta--anal {
+  color: #aaa;
+  font-size: 12px;
+}
+@media screen and (max-width: 1200px) {
+  .contents__wrapper {
+    margin: 112px 0 0 64px;
+    padding: 20px 0 0 0;
+  }
+  .contents__item {
+    width: 33%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .contents__wrapper {
+    margin: 112px 0 0 0;
+    padding: 20px 12px 0;
+  }
+  .contents__item {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .contents__item {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
