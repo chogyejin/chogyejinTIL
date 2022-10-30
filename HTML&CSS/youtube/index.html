@@ -11,14 +11,14 @@
     />
   </head>
   <body>
-    <nav id="header-container">
+    <header id="header-container">
       <div id="start">
         <div id="side-btn">
           <img src="src/icons8-둥근-메뉴-32.png" alt="" />
         </div>
         <div id="logo">
           <img src="src/icons8-유튜브-재생-48.png" alt="" />
-          <span>YouTube</span>
+          <span>YouTube<sup>KR</sup></span>
         </div>
       </div>
       <div id="center">
@@ -34,82 +34,52 @@
         </div>
       </div>
       <div id="end">
-        <div id="make-btn">
+        <div id="make-btn" class="end-btn">
           <img src="src/icons8-이미지-추가-50.png" alt="" />
         </div>
-        <div id="app-btn"><img src="src/icons8-apps-48.png" alt="" /></div>
-        <div id="notification-btn">
+        <div id="app-btn" class="end-btn">
+          <img src="src/icons8-apps-48.png" alt="" />
+        </div>
+        <div id="notification-btn" class="end-btn">
           <img src="src/icons8-약속-미리-알림-50.png" alt="" />
         </div>
-        <div id="profile-btn"><img src="src/img2.jpeg" alt="" /></div>
+        <div id="profile-btn" class="end-btn">
+          <img src="src/img2.jpeg" alt="" />
+        </div>
       </div>
-    </nav>
+    </header>
     <div id="aside-and-main">
-      <aside>
-        <!-- 1329px 이상 -->
-        <div id="opened-sidebar">
-          <div id="first">
-            <div class="side-navigator">
-              <img src="src/icons8-집-24.png" alt="" />
-              <span>홈</span>
-            </div>
-            <div class="side-navigator">
-              <img src="src/icons8-나침반-30.png" alt="" />
-              <span>탐색</span>
-            </div>
-            <div class="side-navigator">
+      <nav class="nav">
+        <div class="nav__wrapper">
+          <ul class="nav__main-menu">
+            <li>
+              <img class="nav__icon" src="src/icons8-집-24.png" alt="홈" />
+              <span class="nav__text">홈</span>
+            </li>
+            <li>
               <img
+                class="nav__icon"
                 src="src/t_youtube-shorts-black3609.jpeg"
-                alt=""
-                width="40"
+                alt="Shorts"
               />
-              <span>Shorts</span>
-            </div>
-            <div class="side-navigator">
-              <img src="src/icons8-subscribe-64.png" alt="" />
-              <span>구독</span>
-            </div>
-          </div>
-          <div id="second">
-            <div class="side-navigator">
-              <img src="src/icons8-video-folder-50.png" alt="" />
-              <span>보관함</span>
-            </div>
-            <div class="side-navigator">
-              <img src="src/icons8-과거-50.png" alt="" />
-              <span>시청 기록</span>
-            </div>
-            <div class="side-navigator">
-              <img src="src/icons8-다음-것-24.png" alt="" />
-              <span>내 동영상</span>
-            </div>
-            <div class="side-navigator">
-              <img src="src/icons8-시계-24.png" alt="" />
-              <span>나중에 볼 동영상</span>
-            </div>
-            <div class="side-navigator">
+              <span class="nav__text">Shorts</span>
+            </li>
+            <li>
               <img
-                src="src/icons8-like-thumbs-up-button-from-popular-social-media-24.png"
-                alt=""
+                class="nav__icon"
+                src="src/icons8-subscribe-64.png"
+                alt="구독"
               />
-              <span>좋아요 표시한 동영상</span>
-            </div>
-          </div>
-          <div id="third">
-            <div class="side-navigator">구독</div>
-          </div>
+              <span class="nav__text">구독</span>
+            </li>
+          </ul>
+          <ul class="nav__user-menu"></ul>
+          <ul class="nav__subscribe"></ul>
         </div>
-        <!-- 1328px 이하 -->
-        <div id="closed-sidebar" style="display: none">
-          <div>홈</div>
-          <div>탐색</div>
-          <div>쇼츠</div>
-          <div>구독</div>
-          <div>홈</div>
-        </div>
-      </aside>
-      <main>
-        <div id="main-navigator">
+      </nav>
+
+      <main class="main">
+        <div class="main__navigator">
           <div class="category-btn current">
             <span>전체</span>
           </div>
@@ -144,340 +114,110 @@
             <span>최근에 업로드된 동영상</span>
           </div>
         </div>
-        <div id="main-contents">
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+        <div class="contents">
+          <div class="contents__wrapper">
+            <div class="contents__item">
+              <img class="contents__thumbnail" src="src/img1.webp" alt="" />
+              <div class="contents__info">
+                <img class="contents__avatar" src="src/img2.jpeg" alt="" />
+                <div class="contents__meta">
+                  <h3 class="contents__meta--title">
+                    뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+                  </h3>
+                  <p class="contents__meta--onwer">빠다너스 BDNS</p>
+                  <p class="contents__meta--anal">조회수 149만회 | 8개월 전</p>
                 </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
               </div>
             </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+            <div class="contents__item">
+              <img class="contents__thumbnail" src="src/img1.webp" alt="" />
+              <div class="contents__info">
+                <img class="contents__avatar" src="src/img2.jpeg" alt="" />
+                <div class="contents__meta">
+                  <h3 class="contents__meta--title">
+                    뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+                  </h3>
+                  <p class="contents__meta--owner">빠다너스 BDNS</p>
+                  <p class="contents__meta--anal">조회수 149만회 | 8개월 전</p>
                 </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
               </div>
             </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+            <div class="contents__item">
+              <img class="contents__thumbnail" src="src/img1.webp" alt="" />
+              <div class="contents__info">
+                <img class="contents__avatar" src="src/img2.jpeg" alt="" />
+                <div class="contents__meta">
+                  <h3 class="contents__meta--title">
+                    뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+                  </h3>
+                  <p class="contents__meta--onwer">빠다너스 BDNS</p>
+                  <p class="contents__meta--anal">조회수 149만회 | 8개월 전</p>
                 </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
               </div>
             </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+            <div class="contents__item">
+              <img class="contents__thumbnail" src="src/img1.webp" alt="" />
+              <div class="contents__info">
+                <img class="contents__avatar" src="src/img2.jpeg" alt="" />
+                <div class="contents__meta">
+                  <h3 class="contents__meta--title">
+                    뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+                  </h3>
+                  <p class="contents__meta--onwer">빠다너스 BDNS</p>
+                  <p class="contents__meta--anal">조회수 149만회 | 8개월 전</p>
                 </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
               </div>
             </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+            <div class="contents__item">
+              <img class="contents__thumbnail" src="src/img1.webp" alt="" />
+              <div class="contents__info">
+                <img class="contents__avatar" src="src/img2.jpeg" alt="" />
+                <div class="contents__meta">
+                  <h3 class="contents__meta--title">
+                    뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+                  </h3>
+                  <p class="contents__meta--onwer">빠다너스 BDNS</p>
+                  <p class="contents__meta--anal">조회수 149만회 | 8개월 전</p>
                 </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
               </div>
             </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+            <div class="contents__item">
+              <img class="contents__thumbnail" src="src/img1.webp" alt="" />
+              <div class="contents__info">
+                <img class="contents__avatar" src="src/img2.jpeg" alt="" />
+                <div class="contents__meta">
+                  <h3 class="contents__meta--title">
+                    뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+                  </h3>
+                  <p class="contents__meta--onwer">빠다너스 BDNS</p>
+                  <p class="contents__meta--anal">조회수 149만회 | 8개월 전</p>
                 </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
               </div>
             </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+            <div class="contents__item">
+              <img class="contents__thumbnail" src="src/img1.webp" alt="" />
+              <div class="contents__info">
+                <img class="contents__avatar" src="src/img2.jpeg" alt="" />
+                <div class="contents__meta">
+                  <h3 class="contents__meta--title">
+                    뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+                  </h3>
+                  <p class="contents__meta--onwer">빠다너스 BDNS</p>
+                  <p class="contents__meta--anal">조회수 149만회 | 8개월 전</p>
                 </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
               </div>
             </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+            <div class="contents__item">
+              <img class="contents__thumbnail" src="src/img1.webp" alt="" />
+              <div class="contents__info">
+                <img class="contents__avatar" src="src/img2.jpeg" alt="" />
+                <div class="contents__meta">
+                  <h3 class="contents__meta--title">
+                    뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
+                  </h3>
+                  <p class="contents__meta--onwer">빠다너스 BDNS</p>
+                  <p class="contents__meta--anal">조회수 149만회 | 8개월 전</p>
                 </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
-              </div>
-            </div>
-          </div>
-          <div class="content-block">
-            <div class="thumbnail-wrapper">
-              <img src="src/img1.webp" alt="" class="thumbnail" />
-              <span>4:47:30</span>
-            </div>
-            <div class="info">
-              <img src="src/img2.jpeg" alt="" />
-              <div class="words">
-                <div class="title">
-                  뭐라도 하는 문이병의 군인 vlog 5시간 몰아보기
-                </div>
-                <div class="name">빠다너스 BDNS</div>
-                <div class="meta">조회수 149만회 | 8개월 전</div>
               </div>
             </div>
           </div>
